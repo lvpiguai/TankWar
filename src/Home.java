@@ -29,15 +29,8 @@ public class Home {
 
 	// 游戏结束
 	public void gameOver(Graphics g) {
-
-		tc.tanks.clear();// 作清理页面工作
-		tc.metalWall.clear();
-		tc.otherWall.clear();
-		tc.bombTanks.clear();
-		tc.theRiver.clear();
-		tc.trees.clear();
-		tc.bullets.clear();
-		tc.homeTank.setLive(false);
+		tc.getGameElements().clearAllElements();
+		tc.getGameElements().getHomeTank().setLive(false);
 		Color c = g.getColor(); // 设置参数
 		g.setColor(Color.green);
 		Font f = g.getFont();
@@ -54,8 +47,8 @@ public class Home {
 		if (live) { // 如果活着，则画出home
 			g.drawImage(homeImags[0], x, y, null);
 
-			for (int i = 0; i < tc.homeWall.size(); i++) {
-				BrickWall w = tc.homeWall.get(i);
+			for (int i = 0; i < tc.getGameElements().getHomeWall().size(); i++) {
+				BrickWall w = tc.getGameElements().getHomeWall().get(i);
 				w.draw(g);
 			}
 		} else {

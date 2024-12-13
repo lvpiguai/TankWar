@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
+import javax.swing.plaf.basic.BasicSliderUI.TrackListener;
+
 /**
  * 坦克类（适用敌方坦克和玩家坦克）
  */
@@ -52,7 +54,7 @@ public class Tank {
 	public void draw(Graphics g) {
 		if (!live) {// 如果坦克死了
 			if (!good) {//
-				tc.tanks.remove(this); // 删除无效的
+				tc.getGameElements().getTanks().remove(this); // 删除无效的
 			}
 			return;
 		}
@@ -143,28 +145,22 @@ public class Tank {
 		int key = e.getKeyCode(); // 获取键
 		switch (key) {
 			case KeyEvent.VK_R: // 当按下R时，重新开始游戏
-				tc.tanks.clear(); // 清理
-				tc.bullets.clear();
-				tc.trees.clear();
-				tc.otherWall.clear();
-				tc.homeWall.clear();
-				tc.metalWall.clear();
-				tc.homeTank.setLive(false);
-				if (tc.tanks.size() == 0) { // 当在区域中没有坦克时，就出来坦克
+			tc.getGameElements().clearAllElements();
+				tc.getGameElements().getHomeTank().setLive(true);
+				if (tc.getGameElements().getTanks().size() == 0) { // 当在区域中没有坦克时，就出来坦克
 					for (int i = 0; i < 20; i++) {
 						if (i < 9) // 设置坦克出现的位置
-							tc.tanks.add(new Tank(150 + 70 * i, 40, false, Direction.R, tc));
+							tc.getGameElements().getTanks().add(new Tank(150 + 70 * i, 40, false, Direction.R, tc));
 						else if (i < 15)
-							tc.tanks.add(new Tank(700, 140 + 50 * (i - 6), false, Direction.D, tc));
+							tc.getGameElements().getTanks().add(new Tank(700, 140 + 50 * (i - 6), false, Direction.D, tc));
 						else
-							tc.tanks.add(new Tank(10, 50 * (i - 12), false, Direction.L, tc));
+							tc.getGameElements().getTanks().add(new Tank(10, 50 * (i - 12), false, Direction.L, tc));
 					}
 				}
-
-				tc.homeTank = new Tank(300, 560, true, Direction.STOP, tc);// 设置自己出现的位置
-
-				if (!tc.home.isLive()) // 将home重置生命
-					tc.home.setLive(true);
+				Tank homeTank = tc.getGameElements().getHomeTank();
+				homeTank= new Tank(300, 560, true, Direction.STOP, tc);// 设置自己出现的位置
+				if (!tc.getGameElements().getHome().isLive()) // 将home重置生命
+					tc.getGameElements().getHome().setLive(true);
 				new GameFrame(); // 重新创建面板
 				break;
 			case KeyEvent.VK_RIGHT: // 监听向右键
@@ -233,7 +229,7 @@ public class Tank {
 		int x = this.x + Tank.width / 2 - Bullets.width / 2; // 开火位置
 		int y = this.y + Tank.length / 2 - Bullets.length / 2;
 		Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc); // 没有给定方向时，向原来的方向发火
-		tc.bullets.add(m);// 添加子弹
+		tc.getGameElements().getBullets().add(m);// 添加子弹
 		return m;
 	}
 

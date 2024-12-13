@@ -33,7 +33,7 @@ public class BombTank {
 	public void draw(Graphics g) { // »­³ö±¬Õ¨Í¼Ïñ
 
 		if (!live) { // Ì¹¿ËÏûÊ§ºóÉ¾³ı±¬Õ¨Í¼
-			tc.bombTanks.remove(this);
+			tc.getGameElements().getBombTanks().remove(this);
 			return;
 		}
 		if (step == imgs.length) {

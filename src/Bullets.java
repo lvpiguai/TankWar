@@ -93,7 +93,7 @@ public class Bullets {
 	// 画出子弹
 	public void draw(Graphics g) {
 		if (!live) {
-			tc.bullets.remove(this);
+			tc.getGameElements().getBullets().remove(this);
 			return;
 		}
 
@@ -142,7 +142,7 @@ public class Bullets {
 		if (this.live && this.getRect().intersects(t.getRect()) && t.isLive() && this.good != t.isGood()) {
 
 			BombTank e = new BombTank(t.getX(), t.getY(), tc);
-			tc.bombTanks.add(e);
+			tc.getGameElements().getBombTanks().add(e);
 			if (t.isGood()) {
 				t.setLife(t.getLife() - 50); // 中一颗子弹寿命减少50，中4枪就死，总生命值200
 				if (t.getLife() <= 0)
@@ -161,8 +161,8 @@ public class Bullets {
 	public boolean hitWall(BrickWall w) { // 子弹打到CommonWall上
 		if (this.live && this.getRect().intersects(w.getRect())) {
 			this.live = false;
-			this.tc.otherWall.remove(w); // 子弹打到CommonWall墙上时则移除此击中墙
-			this.tc.homeWall.remove(w);
+			this.tc.getGameElements().getOtherWall().remove(w); // 子弹打到CommonWall墙上时则移除此击中墙
+			this.tc.getGameElements().getHomeWall().remove(w);
 			return true;
 		}
 		return false;
@@ -178,9 +178,9 @@ public class Bullets {
 	}
 
 	public boolean hitHome() { // 当子弹打到大本营时
-		if (this.live && this.getRect().intersects(tc.home.getRect())) {
+		if (this.live && this.getRect().intersects(tc.getGameElements().getHome().getRect())) {
 			this.live = false;
-			this.tc.home.setLive(false); // 当大本营接受一枪时就毁灭
+			this.tc.getGameElements().getHome().setLive(false); // 当大本营接受一枪时就毁灭
 			return true;
 		}
 		return false;
