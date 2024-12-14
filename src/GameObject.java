@@ -13,11 +13,7 @@ public abstract class GameObject {
     }
     public abstract void draw(Graphics g);// 画出游戏元素
     // 获取元素的矩形边界，用于碰撞检测
-    public Rectangle getBounds() {
+    public Rectangle getRect() {
         return new Rectangle(x, y, width,length);
-    }
-    //碰撞检测
-    public boolean isCollision(GameObject obj) {
-        return this.getBounds().intersects(obj.getBounds());
     }
 }
