@@ -11,7 +11,7 @@ public class Blood {
 	public static final int length = 36;
 
 	private int x, y;
-	GameFrame tc;
+	//GameFrame tc;
 	private static Random r = new Random();
 
 	int step = 0;
