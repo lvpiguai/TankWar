@@ -3,15 +3,15 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 /**
- * ±¬Õ¨µÄÌ¹¿ËÀà£¨Ä£ÄâÌ¹¿Ë±¬Õ¨¹ı³Ì£©
+ * çˆ†ç‚¸çš„å¦å…‹ç±»ï¼ˆæ¨¡æ‹Ÿå¦å…‹çˆ†ç‚¸è¿‡ç¨‹ï¼‰
  */
 public class BombTank {
 	private int x, y;
-	private boolean live = true; // ³õÊ¼×´Ì¬Îª»î×Å
+	private boolean live = true; // åˆå§‹çŠ¶æ€ä¸ºæ´»ç€
 	private GameFrame tc;
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 
-	private static Image[] imgs = { // ´æ´¢±¬Õ¨Í¼Æ¬£¨´ÓĞ¡µ½´óµÄ±¬Õ¨Ğ§¹ûÍ¼£©
+	private static Image[] imgs = { // å­˜å‚¨çˆ†ç‚¸å›¾ç‰‡ï¼ˆä»å°åˆ°å¤§çš„çˆ†ç‚¸æ•ˆæœå›¾ï¼‰
 			tk.getImage(BombTank.class.getClassLoader().getResource("images/1.gif")),
 			tk.getImage(BombTank.class.getClassLoader().getResource("images/2.gif")),
 			tk.getImage(BombTank.class.getClassLoader().getResource("images/3.gif")),
@@ -24,15 +24,15 @@ public class BombTank {
 			tk.getImage(BombTank.class.getClassLoader().getResource("images/10.gif")), };
 	int step = 0;
 
-	public BombTank(int x, int y, GameFrame tc) { // ¹¹Ôìº¯Êı
+	public BombTank(int x, int y, GameFrame tc) { // æ„é€ å‡½æ•°
 		this.x = x;
 		this.y = y;
 		this.tc = tc;
 	}
 
-	public void draw(Graphics g) { // »­³ö±¬Õ¨Í¼Ïñ
+	public void draw(Graphics g) { // ç”»å‡ºçˆ†ç‚¸å›¾åƒ
 
-		if (!live) { // Ì¹¿ËÏûÊ§ºóÉ¾³ı±¬Õ¨Í¼
+		if (!live) { // å¦å…‹æ¶ˆå¤±ååˆ é™¤çˆ†ç‚¸å›¾
 			tc.getGameElements().getBombTanks().remove(this);
 			return;
 		}

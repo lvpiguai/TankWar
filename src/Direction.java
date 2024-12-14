@@ -1,5 +1,5 @@
 /**
- * 方向类（枚举类）
+ * 鏂瑰悜绫伙紙鏋氫妇绫伙級
  */
 public enum Direction {
 	L, U, R, D, STOP

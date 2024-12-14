@@ -6,44 +6,44 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 /**
- * ´ó±¾ÓªÀà
+ * å¤§æœ¬è¥ç±»
  */
 
 public class Home {
 	private int x, y;
 	private GameFrame tc;
-	public static final int width = 30, length = 30; // È«¾Ö¾²Ì¬±äÁ¿³¤¿í
+	public static final int width = 30, length = 30; // å…¨å±€é™æ€å˜é‡é•¿å®½
 	private boolean live = true;
 
-	private static Toolkit tk = Toolkit.getDefaultToolkit(); // È«¾Ö¾²Ì¬±äÁ¿
+	private static Toolkit tk = Toolkit.getDefaultToolkit(); // å…¨å±€é™æ€å˜é‡
 	private static Image[] homeImags = null;
 	static {
 		homeImags = new Image[] { tk.getImage(BrickWall.class.getResource("Images/home.jpg")), };
 	}
 
-	public Home(int x, int y, GameFrame tc) {// ¹¹Ôìº¯Êı£¬´«µİHomeµÄ²ÎÊı²¢¸³Öµ
+	public Home(int x, int y, GameFrame tc) {// æ„é€ å‡½æ•°ï¼Œä¼ é€’Homeçš„å‚æ•°å¹¶èµ‹å€¼
 		this.x = x;
 		this.y = y;
-		this.tc = tc; // »ñµÃ¿ØÖÆ
+		this.tc = tc; // è·å¾—æ§åˆ¶
 	}
 
-	// ÓÎÏ·½áÊø
+	// æ¸¸æˆç»“æŸ
 	public void gameOver(Graphics g) {
 		tc.getGameElements().clearAllElements();
 		tc.getGameElements().getHomeTank().setLive(false);
-		Color c = g.getColor(); // ÉèÖÃ²ÎÊı
+		Color c = g.getColor(); // è®¾ç½®å‚æ•°
 		g.setColor(Color.green);
 		Font f = g.getFont();
 		g.setFont(new Font(" ", Font.PLAIN, 40));
-		g.drawString("ÄãÊäÁË£¡", 220, 250);
-		g.drawString("  ÓÎÏ·½áÊø£¡ ", 220, 300);
+		g.drawString("ä½ è¾“äº†ï¼", 220, 250);
+		g.drawString("  æ¸¸æˆç»“æŸï¼ ", 220, 300);
 		g.setFont(f);
 		g.setColor(c);
 	}
 
 	public void draw(Graphics g) {
 
-		if (live) { // Èç¹û»î×Å£¬Ôò»­³öhome
+		if (live) { // å¦‚æœæ´»ç€ï¼Œåˆ™ç”»å‡ºhome
 			g.drawImage(homeImags[0], x, y, null);
 
 			for (int i = 0; i < tc.getGameElements().getHomeWall().size(); i++) {
@@ -51,20 +51,20 @@ public class Home {
 				w.draw(g);
 			}
 		} else {
-			gameOver(g); // µ÷ÓÃÓÎÏ·½áÊø
+			gameOver(g); // è°ƒç”¨æ¸¸æˆç»“æŸ
 
 		}
 	}
 
-	public boolean isLive() { // ÅĞ¶ÁÊÇ·ñ»¹»î×Å
+	public boolean isLive() { // åˆ¤è¯»æ˜¯å¦è¿˜æ´»ç€
 		return live;
 	}
 
-	public void setLive(boolean live) { // ÉèÖÃÉúÃü
+	public void setLive(boolean live) { // è®¾ç½®ç”Ÿå‘½
 		this.live = live;
 	}
 
-	public Rectangle getRect() { // ·µ»Ø³¤·½ĞÎÊµÀı
+	public Rectangle getRect() { // è¿”å›é•¿æ–¹å½¢å®ä¾‹
 		return new Rectangle(x, y, width, length);
 	}
 

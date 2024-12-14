@@ -4,29 +4,29 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 /**
- * ºÓÁ÷Àà
+ * æ²³æµç±»
  */
 public class River {
 	public static final int riverWidth = 40;
-	public static final int riverLength = 100;// ¾²Ì¬È«¾Ö±äÁ¿
+	public static final int riverLength = 100;// é™æ€å…¨å±€å˜é‡
 	private int x, y;
 	GameFrame tc;
 
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] riverImags = null;
 
-	static { // ´æ´¢Í¼Æ¬
+	static { // å­˜å‚¨å›¾ç‰‡
 		riverImags = new Image[] { tk.getImage(BrickWall.class.getResource("Images/river.jpg")), };
 	}
 
-	public River(int x, int y, GameFrame tc) { // RiverµÄ¹¹Ôì·½·¨
+	public River(int x, int y, GameFrame tc) { // Riverçš„æ„é€ æ–¹æ³•
 		this.x = x;
 		this.y = y;
-		this.tc = tc; // »ñµÃ¿ØÖÆ
+		this.tc = tc; // è·å¾—æ§åˆ¶
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(riverImags[0], x, y, null); // ÔÚ¶ÔÓ¦X£¬Y³ö»­ºÓ
+		g.drawImage(riverImags[0], x, y, null); // åœ¨å¯¹åº”Xï¼ŒYå‡ºç”»æ²³
 	}
 
 	public static int getRiverWidth() {

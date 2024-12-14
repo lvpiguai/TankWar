@@ -42,7 +42,7 @@ public class GameFrame extends Frame{
 		}
 	}
 
-	// 重写方法，使用双缓冲，避免屏幕闪烁 ，由repaint()方法自动调用
+	//重写方法，使用双缓冲，避免屏幕闪烁 ，由repaint()方法自动调用
 	public void update(Graphics g) {
 		Image screenImage = this.createImage(Fram_width, Fram_length);// 创建缓冲区图像
 		Graphics gps = screenImage.getGraphics();// 获取缓冲区图像

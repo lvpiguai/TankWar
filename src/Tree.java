@@ -3,7 +3,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 /**
- * Ê÷£¨´ÔÁÖ£©Àà
+ * æ ‘ï¼ˆä¸›æž—ï¼‰ç±»
  */
 
 public class Tree {
@@ -17,13 +17,13 @@ public class Tree {
 		treeImags = new Image[] { tk.getImage(BrickWall.class.getResource("Images/tree.gif")), };
 	}
 
-	public Tree(int x, int y, GameFrame tc) { // TreeµÄ¹¹Ôì·½·¨£¬´«µÝx£¬yºÍtc¶ÔÏó
+	public Tree(int x, int y, GameFrame tc) { // Treeçš„æž„é€ æ–¹æ³•ï¼Œä¼ é€’xï¼Œyå’Œtcå¯¹è±¡
 		this.x = x;
 		this.y = y;
 		this.tc = tc;
 	}
 
-	public void draw(Graphics g) { // »­³öÊ÷
+	public void draw(Graphics g) { // ç”»å‡ºæ ‘
 		g.drawImage(treeImags[0], x, y, null);
 	}
 }

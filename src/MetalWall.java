@@ -4,10 +4,10 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 /**
- * ½ğÊôÇ½Àà£¨¸Ö°å,×Óµ¯²»¿É´ò´©£©
+ * é‡‘å±å¢™ç±»ï¼ˆé’¢æ¿,å­å¼¹ä¸å¯æ‰“ç©¿ï¼‰
  */
 public class MetalWall {
-	public static final int width = 30; // ÉèÖÃ½ğÊôÇ½µÄ³¤¿í¾²Ì¬È«¾Ö²ÎÊı
+	public static final int width = 30; // è®¾ç½®é‡‘å±å¢™çš„é•¿å®½é™æ€å…¨å±€å‚æ•°
 	public static final int length = 30;
 	private int x, y;
 	GameFrame tc;
@@ -17,17 +17,17 @@ public class MetalWall {
 		wallImags = new Image[] { tk.getImage(BrickWall.class.getResource("Images/metalWall.gif")), };
 	}
 
-	public MetalWall(int x, int y, GameFrame tc) {// ¹¹Ôìº¯Êı£¬´«µİÒª¹¹ÔìµÄ³¤¿í²¢¸³Öµ
+	public MetalWall(int x, int y, GameFrame tc) {// æ„é€ å‡½æ•°ï¼Œä¼ é€’è¦æ„é€ çš„é•¿å®½å¹¶èµ‹å€¼
 		this.x = x;
 		this.y = y;
 		this.tc = tc;
 	}
 
-	public void draw(Graphics g) { // »­½ğÊôÇ½
+	public void draw(Graphics g) { // ç”»é‡‘å±å¢™
 		g.drawImage(wallImags[0], x, y, null);
 	}
 
-	public Rectangle getRect() { // ¹¹ÔìÖ¸¶¨²ÎÊıµÄ³¤·½ĞÎÊµÀı
+	public Rectangle getRect() { // æ„é€ æŒ‡å®šå‚æ•°çš„é•¿æ–¹å½¢å®ä¾‹
 		return new Rectangle(x, y, width, length);
 	}
 }

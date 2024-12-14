@@ -5,30 +5,30 @@ import java.util.*;
 import javax.swing.plaf.basic.BasicSliderUI.TrackListener;
 
 /**
- * Ì¹¿ËÀà£¨ÊÊÓÃµĞ·½Ì¹¿ËºÍÍæ¼ÒÌ¹¿Ë£©
+ * å¦å…‹ç±»ï¼ˆé€‚ç”¨æ•Œæ–¹å¦å…‹å’Œç©å®¶å¦å…‹ï¼‰
  */
 
 public class Tank {
-	public static int speedX = 6, speedY = 6; // Ì¹¿ËµÄÒÆ¶¯ËÙ¶È
-	public static int count = 0;	// Ì¹¿ËµÄÊıÁ¿
-	public static final int width = 35, length = 35; // Ì¹¿ËµÄÈ«¾Ö´óĞ¡£¬¾ßÓĞ²»¿É¸Ä±äĞÔ
-	private Direction direction = Direction.STOP; // ³õÊ¼»¯×´Ì¬Îª¾²Ö¹
-	private Direction Kdirection = Direction.U; //  ¼ÇÂ¼»æÖÆ·½Ïò
+	public static int speedX = 6, speedY = 6; // å¦å…‹çš„ç§»åŠ¨é€Ÿåº¦
+	public static int count = 0; // å¦å…‹çš„æ•°é‡
+	public static final int width = 35, length = 35; // å¦å…‹çš„å…¨å±€å¤§å°ï¼Œå…·æœ‰ä¸å¯æ”¹å˜æ€§
+	private Direction direction = Direction.STOP; // åˆå§‹åŒ–çŠ¶æ€ä¸ºé™æ­¢
+	private Direction Kdirection = Direction.U; // è®°å½•ç»˜åˆ¶æ–¹å‘
 	GameFrame tc;
 
-	private boolean good;// trueÎª¼º·½Ì¹¿Ë£¬falseÎªµĞ·½Ì¹¿Ë
-	private int x, y;// Ì¹¿ËµÄ×ø±ê ÄÇÄã
-	private int oldX, oldY;// Ì¹¿ËÒÆ¶¯Ç°µÄ×ø±ê
-	private boolean live = true; // ³õÊ¼»¯Îª»î×Å
-	private int life = 200; // ³õÊ¼ÉúÃüÖµ
+	private boolean good;// trueä¸ºå·±æ–¹å¦å…‹ï¼Œfalseä¸ºæ•Œæ–¹å¦å…‹
+	private int x, y;// å¦å…‹çš„åæ ‡ é‚£ä½ 
+	private int oldX, oldY;// å¦å…‹ç§»åŠ¨å‰çš„åæ ‡
+	private boolean live = true; // åˆå§‹åŒ–ä¸ºæ´»ç€
+	private int life = 200; // åˆå§‹ç”Ÿå‘½å€¼
 
-	private static Random r = new Random(); //Ëæ»úÊı±äÁ¿
-	private int step = r.nextInt(10) + 5; // ²úÉúÒ»¸öËæ»úÊı,Ëæ»úÄ£ÄâÌ¹¿ËµÄÒÆ¶¯Â·¾¶
+	private static Random r = new Random(); // éšæœºæ•°å˜é‡
+	private int step = r.nextInt(10) + 5; // äº§ç”Ÿä¸€ä¸ªéšæœºæ•°,éšæœºæ¨¡æ‹Ÿå¦å…‹çš„ç§»åŠ¨è·¯å¾„
 
-	private boolean bL = false, bU = false, bR = false, bD = false; // °´¼ü×´Ì¬
+	private boolean bL = false, bU = false, bR = false, bD = false; // æŒ‰é”®çŠ¶æ€
 
-	private static Toolkit tk = Toolkit.getDefaultToolkit();// ¿ØÖÆÃæ°å
-	private static Image[] tankImags = null; // Ì¹¿ËÍ¼Æ¬Êı×é
+	private static Toolkit tk = Toolkit.getDefaultToolkit();// æ§åˆ¶é¢æ¿
+	private static Image[] tankImags = null; // å¦å…‹å›¾ç‰‡æ•°ç»„
 	static {
 		tankImags = new Image[] { tk.getImage(BombTank.class.getResource("Images/tankD.gif")),
 				tk.getImage(BombTank.class.getResource("Images/tankU.gif")),
@@ -36,7 +36,7 @@ public class Tank {
 				tk.getImage(BombTank.class.getResource("Images/tankR.gif")), };
 	}
 
-	public Tank(int x, int y, boolean good) {// TankµÄ¹¹Ôìº¯Êı1
+	public Tank(int x, int y, boolean good) {// Tankçš„æ„é€ å‡½æ•°1
 		this.x = x;
 		this.y = y;
 		this.oldX = x;
@@ -44,26 +44,26 @@ public class Tank {
 		this.good = good;
 	}
 
-	public Tank(int x, int y, boolean good, Direction dir, GameFrame tc) {// TankµÄ¹¹Ôìº¯Êı2
+	public Tank(int x, int y, boolean good, Direction dir, GameFrame tc) {// Tankçš„æ„é€ å‡½æ•°2
 		this(x, y, good);
 		this.direction = dir;
 		this.tc = tc;
 	}
 
-	// »­³öÌ¹¿Ë
+	// ç”»å‡ºå¦å…‹
 	public void draw(Graphics g) {
-		if (!live) {// Èç¹ûÌ¹¿ËËÀÁË
+		if (!live) {// å¦‚æœå¦å…‹æ­»äº†
 			if (!good) {//
-				tc.getGameElements().getTanks().remove(this); // É¾³ıÎŞĞ§µÄ
+				tc.getGameElements().getTanks().remove(this); // åˆ é™¤æ— æ•ˆçš„
 			}
 			return;
 		}
 
-		if (good)// Èç¹ûÊÇ¼º·½Ì¹¿Ë
-			new DrawBloodbBar().draw(g); // Íæ¼ÒÌ¹¿ËµÄÑªÁ¿Ìõ
+		if (good)// å¦‚æœæ˜¯å·±æ–¹å¦å…‹
+			new DrawBloodbBar().draw(g); // ç©å®¶å¦å…‹çš„è¡€é‡æ¡
 
 		switch (Kdirection) {
-		// ¸ù¾İ·½ÏòÑ¡ÔñÌ¹¿ËµÄÍ¼Æ¬
+			// æ ¹æ®æ–¹å‘é€‰æ‹©å¦å…‹çš„å›¾ç‰‡
 			case D:
 				g.drawImage(tankImags[0], x, y, null);
 				break;
@@ -76,22 +76,22 @@ public class Tank {
 				break;
 
 			case R:
-			g.drawImage(tankImags[3], x, y, null);
-			break;
+				g.drawImage(tankImags[3], x, y, null);
+				break;
 
 		}
-		move(); // µ÷ÓÃmoveº¯Êı
+		move(); // è°ƒç”¨moveå‡½æ•°
 	}
 
-	// Ì¹¿ËÒÆ¶¯
+	// å¦å…‹ç§»åŠ¨
 	void move() {
 
-		// ¼ÇÂ¼ÒÆ¶¯Ç°µÄ×ø±ê
+		// è®°å½•ç§»åŠ¨å‰çš„åæ ‡
 		this.oldX = x;
 		this.oldY = y;
 
-		//¸ù¾İ·½ÏòÒÆ¶¯¶ÔÓ¦¾àÀë
-		switch (direction) { // Ñ¡ÔñÒÆ¶¯·½Ïò
+		// æ ¹æ®æ–¹å‘ç§»åŠ¨å¯¹åº”è·ç¦»
+		switch (direction) { // é€‰æ‹©ç§»åŠ¨æ–¹å‘
 			case L:
 				x -= speedX;
 				break;
@@ -108,128 +108,139 @@ public class Tank {
 				break;
 		}
 
-		//¼ÇÂ¼»æÖÆÍ¼ÏñµÃ·½Ïò
-		if (this.direction != Direction.STOP) { //ÈôÔİÍ£Ôò²»ÒÆ¶¯
+		// è®°å½•ç»˜åˆ¶å›¾åƒå¾—æ–¹å‘
+		if (this.direction != Direction.STOP) { // è‹¥æš‚åœåˆ™ä¸ç§»åŠ¨
 			this.Kdirection = this.direction;
 		}
 
-		//·ÀÖ¹Ô½½ç£¬³¬¹ıÇøÓòÔò»Ö¸´µ½±ß½ç
-		if (x < 0)x = 0;
-		if (y < 40) y = 40;
-		if (x + Tank.width > GameFrame.Fram_width)x = GameFrame.Fram_width - Tank.width;
-		if (y + Tank.length > GameFrame.Fram_length)y = GameFrame.Fram_length - Tank.length;
+		// é˜²æ­¢è¶Šç•Œï¼Œè¶…è¿‡åŒºåŸŸåˆ™æ¢å¤åˆ°è¾¹ç•Œ
+		if (x < 0)
+			x = 0;
+		if (y < 40)
+			y = 40;
+		if (x + Tank.width > GameFrame.Fram_width)
+			x = GameFrame.Fram_width - Tank.width;
+		if (y + Tank.length > GameFrame.Fram_length)
+			y = GameFrame.Fram_length - Tank.length;
 
-		//µĞ·½Ì¹¿Ë£¬Ëæ»úÂ·¾¶
+		// æ•Œæ–¹å¦å…‹ï¼Œéšæœºè·¯å¾„
 		if (!good) {
-			Direction[] directons = Direction.values();//»ñÈ¡ËùÓĞ·½ÏòµÃÖµ
-			if (step == 0) { //²½ÊıÒÆ¶¯Íê±Ï
-				step = r.nextInt(12) + 3; // Ëæ»ú²½Êı
+			Direction[] directons = Direction.values();// è·å–æ‰€æœ‰æ–¹å‘å¾—å€¼
+			if (step == 0) { // æ­¥æ•°ç§»åŠ¨å®Œæ¯•
+				step = r.nextInt(12) + 3; // éšæœºæ­¥æ•°
 				int rn = r.nextInt(directons.length);
-				direction = directons[rn]; // ²úÉúËæ»ú·½Ïò
+				direction = directons[rn]; // äº§ç”Ÿéšæœºæ–¹å‘
 			}
-			step--;//Ã¿´ÎÒÆ¶¯Ò»²½
+			step--;// æ¯æ¬¡ç§»åŠ¨ä¸€æ­¥
 
-			//5% µÄ¸ÅÂÊ ·¢Éä×Óµ¯
-			if (r.nextInt(40) > 38)this.fire();
+			// 5% çš„æ¦‚ç‡ å‘å°„å­å¼¹
+			if (r.nextInt(40) > 38)
+				this.fire();
 		}
 	}
 
-	// »Ö¸´ÒÆ¶¯Ç°µÄ×ø±ê
+	// æ¢å¤ç§»åŠ¨å‰çš„åæ ‡
 	private void changToOldDir() {
 		x = oldX;
 		y = oldY;
 	}
 
-	// ¼àÌı¼üÅÌ
-	public void keyPressed(KeyEvent e) { // ½ÓÊÜ¼üÅÌÊÂ¼ş
-		int key = e.getKeyCode(); // »ñÈ¡¼ü
+	// ç›‘å¬é”®ç›˜
+	public void keyPressed(KeyEvent e) { // æ¥å—é”®ç›˜äº‹ä»¶
+		int key = e.getKeyCode(); // è·å–é”®
 		switch (key) {
-			case KeyEvent.VK_R: // µ±°´ÏÂRÊ±£¬ÖØĞÂ¿ªÊ¼ÓÎÏ·
-			tc.getGameElements().clearAllElements();
+			case KeyEvent.VK_R: // å½“æŒ‰ä¸‹Ræ—¶ï¼Œé‡æ–°å¼€å§‹æ¸¸æˆ
+				tc.getGameElements().clearAllElements();
 				tc.getGameElements().getHomeTank().setLive(true);
-				if (tc.getGameElements().getTanks().size() == 0) { // µ±ÔÚÇøÓòÖĞÃ»ÓĞÌ¹¿ËÊ±£¬¾Í³öÀ´Ì¹¿Ë
+				if (tc.getGameElements().getTanks().size() == 0) { // å½“åœ¨åŒºåŸŸä¸­æ²¡æœ‰å¦å…‹æ—¶ï¼Œå°±å‡ºæ¥å¦å…‹
 					for (int i = 0; i < 20; i++) {
-						if (i < 9) // ÉèÖÃÌ¹¿Ë³öÏÖµÄÎ»ÖÃ
+						if (i < 9) // è®¾ç½®å¦å…‹å‡ºç°çš„ä½ç½®
 							tc.getGameElements().getTanks().add(new Tank(150 + 70 * i, 40, false, Direction.R, tc));
 						else if (i < 15)
-							tc.getGameElements().getTanks().add(new Tank(700, 140 + 50 * (i - 6), false, Direction.D, tc));
+							tc.getGameElements().getTanks()
+									.add(new Tank(700, 140 + 50 * (i - 6), false, Direction.D, tc));
 						else
 							tc.getGameElements().getTanks().add(new Tank(10, 50 * (i - 12), false, Direction.L, tc));
 					}
 				}
 				Tank homeTank = tc.getGameElements().getHomeTank();
-				homeTank= new Tank(300, 560, true, Direction.STOP, tc);// ÉèÖÃ×Ô¼º³öÏÖµÄÎ»ÖÃ
-				if (!tc.getGameElements().getHome().isLive()) // ½«homeÖØÖÃÉúÃü
+				homeTank = new Tank(300, 560, true, Direction.STOP, tc);// è®¾ç½®è‡ªå·±å‡ºç°çš„ä½ç½®
+				if (!tc.getGameElements().getHome().isLive()) // å°†homeé‡ç½®ç”Ÿå‘½
 					tc.getGameElements().getHome().setLive(true);
-				new GameFrame(); // ÖØĞÂ´´½¨Ãæ°å
+				new GameFrame(); // é‡æ–°åˆ›å»ºé¢æ¿
 				break;
-			case KeyEvent.VK_RIGHT: // ¼àÌıÏòÓÒ¼ü
+			case KeyEvent.VK_RIGHT: // ç›‘å¬å‘å³é”®
 				bR = true;
 				break;
 
-			case KeyEvent.VK_LEFT:// ¼àÌıÏò×ó¼ü
+			case KeyEvent.VK_LEFT:// ç›‘å¬å‘å·¦é”®
 				bL = true;
 				break;
 
-			case KeyEvent.VK_UP: // ¼àÌıÏòÉÏ¼ü
+			case KeyEvent.VK_UP: // ç›‘å¬å‘ä¸Šé”®
 				bU = true;
 				break;
 
-			case KeyEvent.VK_DOWN:// ¼àÌıÏòÏÂ¼ü
-			bD = true;
-			break;
+			case KeyEvent.VK_DOWN:// ç›‘å¬å‘ä¸‹é”®
+				bD = true;
+				break;
 		}
-		decideDirection();// µ÷ÓÃº¯ÊıÈ·¶¨ÒÆ¶¯·½Ïò
+		decideDirection();// è°ƒç”¨å‡½æ•°ç¡®å®šç§»åŠ¨æ–¹å‘
 	}
 
-	//¾ö¶¨ÒÆ¶¯µÃ·½Ïò
+	// å†³å®šç§»åŠ¨å¾—æ–¹å‘
 	void decideDirection() {
-		if (!bL && !bU && bR && !bD) // ÏòÓÒÒÆ¶¯
+		if (!bL && !bU && bR && !bD) // å‘å³ç§»åŠ¨
 			direction = Direction.R;
 
-		else if (bL && !bU && !bR && !bD) // Ïò×óÒÆ
+		else if (bL && !bU && !bR && !bD) // å‘å·¦ç§»
 			direction = Direction.L;
 
-		else if (!bL && bU && !bR && !bD) // ÏòÉÏÒÆ¶¯
+		else if (!bL && bU && !bR && !bD) // å‘ä¸Šç§»åŠ¨
 			direction = Direction.U;
 
-		else if (!bL && !bU && !bR && bD) // ÏòÏÂÒÆ¶¯
+		else if (!bL && !bU && !bR && bD) // å‘ä¸‹ç§»åŠ¨
 			direction = Direction.D;
 
 		else if (!bL && !bU && !bR && !bD)
-			direction = Direction.STOP; // Ã»ÓĞ°´¼ü£¬¾Í±£³Ö²»¶¯
+			direction = Direction.STOP; // æ²¡æœ‰æŒ‰é”®ï¼Œå°±ä¿æŒä¸åŠ¨
 	}
 
-	// ¼üÅÌÊÍ·Å
-	public void keyReleased(KeyEvent e) { // ¼üÅÌÊÍ·Å¼àÌı
+	// é”®ç›˜é‡Šæ”¾
+	public void keyReleased(KeyEvent e) { // é”®ç›˜é‡Šæ”¾ç›‘å¬
 		int key = e.getKeyCode();
 		switch (key) {
-			case KeyEvent.VK_F: //°´¼üÊÍ·Åºó²Å¿ª»ğ
-				fire();break;
+			case KeyEvent.VK_F: // æŒ‰é”®é‡Šæ”¾åæ‰å¼€ç«
+				fire();
+				break;
 			case KeyEvent.VK_RIGHT:
-				bR = false;break;
+				bR = false;
+				break;
 
 			case KeyEvent.VK_LEFT:
-				bL = false;break;
+				bL = false;
+				break;
 
 			case KeyEvent.VK_UP:
-				bU = false;break;
+				bU = false;
+				break;
 
 			case KeyEvent.VK_DOWN:
-				bD = false;break;
+				bD = false;
+				break;
 
 		}
-		decideDirection(); // ÊÍ·Å¼üÅÌºóÈ·¶¨ÒÆ¶¯·½Ïò
+		decideDirection(); // é‡Šæ”¾é”®ç›˜åç¡®å®šç§»åŠ¨æ–¹å‘
 	}
 
-	// ·¢Éä×Óµ¯
-	public Bullets fire() { // ¿ª»ğ·½·¨
-		if (!live)// Èç¹ûÌ¹¿ËËÀÁË
+	// å‘å°„å­å¼¹
+	public Bullets fire() { // å¼€ç«æ–¹æ³•
+		if (!live)// å¦‚æœå¦å…‹æ­»äº†
 			return null;
-		int x = this.x + Tank.width / 2 - Bullets.width / 2; // ¿ª»ğÎ»ÖÃ
+		int x = this.x + Tank.width / 2 - Bullets.width / 2; // å¼€ç«ä½ç½®
 		int y = this.y + Tank.length / 2 - Bullets.length / 2;
-		Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc); // Ã»ÓĞ¸ø¶¨·½ÏòÊ±£¬ÏòÔ­À´µÄ·½Ïò·¢»ğ
-		tc.getGameElements().getBullets().add(m);// Ìí¼Ó×Óµ¯
+		Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc); // æ²¡æœ‰ç»™å®šæ–¹å‘æ—¶ï¼Œå‘åŸæ¥çš„æ–¹å‘å‘ç«
+		tc.getGameElements().getBullets().add(m);// æ·»åŠ å­å¼¹
 		return m;
 	}
 
@@ -250,16 +261,15 @@ public class Tank {
 		return good;
 	}
 
-	
-	public boolean collideWithWall(BrickWall w) { // Åö×²µ½ÆÕÍ¨Ç½Ê±
+	public boolean collideWithWall(BrickWall w) { // ç¢°æ’åˆ°æ™®é€šå¢™æ—¶
 		if (this.live && this.getRect().intersects(w.getRect())) {
-			this.changToOldDir(); // ×ª»»µ½Ô­À´µÄ·½ÏòÉÏÈ¥
+			this.changToOldDir(); // è½¬æ¢åˆ°åŸæ¥çš„æ–¹å‘ä¸Šå»
 			return true;
 		}
 		return false;
 	}
 
-	public boolean collideWithWall(MetalWall w) { // ×²µ½½ğÊôÇ½
+	public boolean collideWithWall(MetalWall w) { // æ’åˆ°é‡‘å±å¢™
 		if (this.live && this.getRect().intersects(w.getRect())) {
 			this.changToOldDir();
 			return true;
@@ -267,7 +277,7 @@ public class Tank {
 		return false;
 	}
 
-	public boolean collideRiver(River r) { // ×²µ½ºÓÁ÷µÄÊ±ºò
+	public boolean collideRiver(River r) { // æ’åˆ°æ²³æµçš„æ—¶å€™
 		if (this.live && this.getRect().intersects(r.getRect())) {
 			this.changToOldDir();
 			return true;
@@ -275,7 +285,7 @@ public class Tank {
 		return false;
 	}
 
-	public boolean collideHome(Home h) { // ×²µ½¼ÒµÄÊ±ºò
+	public boolean collideHome(Home h) { // æ’åˆ°å®¶çš„æ—¶å€™
 		if (this.live && this.getRect().intersects(h.getRect())) {
 			this.changToOldDir();
 			return true;
@@ -283,7 +293,7 @@ public class Tank {
 		return false;
 	}
 
-	public boolean collideWithTanks(java.util.List<Tank> tanks) {// ×²µ½Ì¹¿ËÊ±
+	public boolean collideWithTanks(java.util.List<Tank> tanks) {// æ’åˆ°å¦å…‹æ—¶
 		for (int i = 0; i < tanks.size(); i++) {
 			Tank t = tanks.get(i);
 			if (this != t) {
@@ -305,23 +315,23 @@ public class Tank {
 		this.life = life;
 	}
 
-	//ÑªÁ¿Ìõ-ÄÚ²¿Àà
+	// è¡€é‡æ¡-å†…éƒ¨ç±»
 	private class DrawBloodbBar {
 		public void draw(Graphics g) {
-			Color c = g.getColor();//±£´æÑÕÉ«
-			g.setColor(Color.RED);//ÉèÖÃÎªºìÉ«
-			g.drawRect(375, 585, width, 10);// ¾ØÕóÑªÁ¿Ìõ
-			int w = width * life / 200; // ¼ÆËãÑªÁ¿
-			g.fillRect(375, 585, w, 10);// ÏÔÊ¾Íæ¼ÒÌ¹¿ËµÄÑªÁ¿Ìõ
-			g.setColor(c); //»Ö¸´±³¾°ÑÕÉ«
+			Color c = g.getColor();// ä¿å­˜é¢œè‰²
+			g.setColor(Color.RED);// è®¾ç½®ä¸ºçº¢è‰²
+			g.drawRect(375, 585, width, 10);// çŸ©é˜µè¡€é‡æ¡
+			int w = width * life / 200; // è®¡ç®—è¡€é‡
+			g.fillRect(375, 585, w, 10);// æ˜¾ç¤ºç©å®¶å¦å…‹çš„è¡€é‡æ¡
+			g.setColor(c); // æ¢å¤èƒŒæ™¯é¢œè‰²
 		}
 	}
 
-	//³ÔÑª°ü
+	// åƒè¡€åŒ…
 	public boolean eat(Blood b) {
 		if (this.live && b.isLive() && this.getRect().intersects(b.getRect())) {
 			if (this.life <= 100)
-				this.life = this.life + 100; // Ã¿³ÔÒ»¸ö£¬Ôö¼Ó100ÉúÃüµã
+				this.life = this.life + 100; // æ¯åƒä¸€ä¸ªï¼Œå¢åŠ 100ç”Ÿå‘½ç‚¹
 			else
 				this.life = 200;
 			b.setLive(false);

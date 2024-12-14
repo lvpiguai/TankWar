@@ -1,10 +1,10 @@
 import java.awt.*;
 
 /**
- * ×©Ç½Àà£¨×Óµ¯¿É´ò´©£©
+ * ç –å¢™ç±»ï¼ˆå­å¼¹å¯æ‰“ç©¿ï¼‰
  */
 public class BrickWall {
-	public static final int width = 20; // ÉèÖÃÇ½µÄ¹Ì¶¨²ÎÊı
+	public static final int width = 20; // è®¾ç½®å¢™çš„å›ºå®šå‚æ•°
 	public static final int length = 20;
 	int x, y;
 
@@ -12,21 +12,21 @@ public class BrickWall {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] wallImags = null;
 	static {
-		wallImags = new Image[] { // ´¢´æcommonWallµÄÍ¼Æ¬
+		wallImags = new Image[] { // å‚¨å­˜commonWallçš„å›¾ç‰‡
 				tk.getImage(BrickWall.class.getResource("Images/commonWall.gif")), };
 	}
 
-	public BrickWall(int x, int y, GameFrame tc) { // ¹¹Ôìº¯Êı
+	public BrickWall(int x, int y, GameFrame tc) { // æ„é€ å‡½æ•°
 		this.x = x;
 		this.y = y;
-		this.tc = tc; // »ñµÃ½çÃæ¿ØÖÆ
+		this.tc = tc; // è·å¾—ç•Œé¢æ§åˆ¶
 	}
 
-	public void draw(Graphics g) {// »­commonWall
+	public void draw(Graphics g) {// ç”»commonWall
 		g.drawImage(wallImags[0], x, y, null);
 	}
 
-	public Rectangle getRect() { // ¹¹ÔìÖ¸¶¨²ÎÊıµÄ³¤·½ĞÎÊµÀı
+	public Rectangle getRect() { // æ„é€ æŒ‡å®šå‚æ•°çš„é•¿æ–¹å½¢å®ä¾‹
 		return new Rectangle(x, y, width, length);
 	}
 }

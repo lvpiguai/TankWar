@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- * Ñª°üÀà£¨Ò½ÁÆÏä£¬¿É¼ÓÑª£©
+ * è¡€åŒ…ç±»ï¼ˆåŒ»ç–—ç®±ï¼Œå¯åŠ è¡€ï¼‰
  */
 
 public class Blood {
@@ -11,7 +11,7 @@ public class Blood {
 	public static final int length = 36;
 
 	private int x, y;
-	//GameFrame tc;
+	// GameFrame tc;
 	private static Random r = new Random();
 
 	int step = 0;
@@ -48,11 +48,11 @@ public class Blood {
 		return new Rectangle(x, y, width, length);
 	}
 
-	public boolean isLive() {// ÅĞ¶ÏÊÇ·ñ»¹»î×Å
+	public boolean isLive() {// åˆ¤æ–­æ˜¯å¦è¿˜æ´»ç€
 		return live;
 	}
 
-	public void setLive(boolean live) { // ÉèÖÃÉúÃü
+	public void setLive(boolean live) { // è®¾ç½®ç”Ÿå‘½
 		this.live = live;
 	}
 }
