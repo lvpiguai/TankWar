@@ -41,7 +41,6 @@ public class Blood {
 		}
 		x = poition[step][0];
 		y = poition[step][1];
-
 	}
 
 	public Rectangle getRect() {
