@@ -39,7 +39,6 @@ public class Home {
 		g.drawString("  ÓÎÏ·½áÊø£¡ ", 220, 300);
 		g.setFont(f);
 		g.setColor(c);
-
 	}
 
 	public void draw(Graphics g) {

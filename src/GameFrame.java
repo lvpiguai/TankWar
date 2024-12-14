@@ -57,7 +57,6 @@ public class GameFrame extends Frame{
 	}
 	// 画出游戏界面到缓冲区g
 	public void framPaint(Graphics g) {
-
 		gameElements.getHomeTank().eat(gameElements.getBlood());// 加血--生命值
 		gameState.drawState(g, gameElements);// 画出游戏状态
 		gameElements.drawElements(g);// 画出所有元素

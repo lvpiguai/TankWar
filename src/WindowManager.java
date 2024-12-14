@@ -140,5 +140,4 @@ public class WindowManager {
 			frame.getGameElements().getHomeTank().keyPressed(e);
 		}
 	}
-
 }

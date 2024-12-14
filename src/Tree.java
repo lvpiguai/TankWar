@@ -26,5 +26,4 @@ public class Tree {
 	public void draw(Graphics g) { // »­³öÊ÷
 		g.drawImage(treeImags[0], x, y, null);
 	}
-
 }

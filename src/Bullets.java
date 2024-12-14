@@ -137,7 +137,7 @@ public class Bullets {
 		return false;
 	}
 
-	public boolean hitTank(Tank t) { // 当子弹打到坦克上
+	public boolean hitTank(Tank t) { // 当子弹己方坦克上
 
 		if (this.live && this.getRect().intersects(t.getRect()) && t.isLive() && this.good != t.isGood()) {
 
