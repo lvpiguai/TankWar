@@ -2,24 +2,19 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-import javax.swing.plaf.basic.BasicSliderUI.TrackListener;
-
 /**
  * 坦克类（适用敌方坦克和玩家坦克）
  */
 
-public class Tank {
+public class Tank extends GameObject {
 	public static int speedX = 6, speedY = 6; // 坦克的移动速度
 	public static int count = 0; // 坦克的数量
-	public static final int width = 35, length = 35; // 坦克的全局大小，具有不可改变性
 	private Direction direction = Direction.STOP; // 初始化状态为静止
 	private Direction Kdirection = Direction.U; // 记录绘制方向
 	GameFrame tc;
 
 	private boolean good;// true为己方坦克，false为敌方坦克
-	private int x, y;// 坦克的坐标 那你
 	private int oldX, oldY;// 坦克移动前的坐标
-	private boolean live = true; // 初始化为活着
 	private int life = 200; // 初始生命值
 
 	private static Random r = new Random(); // 随机数变量
@@ -34,11 +29,12 @@ public class Tank {
 				tk.getImage(BombTank.class.getResource("Images/tankU.gif")),
 				tk.getImage(BombTank.class.getResource("Images/tankL.gif")),
 				tk.getImage(BombTank.class.getResource("Images/tankR.gif")), };
+		width = length = 35;// 坦克的大小
+
 	}
 
 	public Tank(int x, int y, boolean good) {// Tank的构造函数1
-		this.x = x;
-		this.y = y;
+		super(x,y);
 		this.oldX = x;
 		this.oldY = y;
 		this.good = good;
