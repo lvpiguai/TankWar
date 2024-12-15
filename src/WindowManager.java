@@ -131,9 +131,28 @@ public class WindowManager {
     }
     // 键盘监听
     private class KeyMonitor extends KeyAdapter {
-
+        boolean bR = false, bL = false, bU = false, bD = false;// 键盘监听
+        Tank homeTank = frame.getGameElements().getHomeTank(); // 获取己方坦克
 		public void keyReleased(KeyEvent e) { // 监听键盘释放
-			frame.getGameElements().getHomeTank().keyReleased(e);
+            int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_F: // 按键释放后才开火
+                    homeTank.fire();
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    bR = false;
+                    break;
+                case KeyEvent.VK_LEFT:
+                    bL = false;
+                    break;
+                case KeyEvent.VK_UP:
+                    bU = false;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    bD = false;
+                    break;
+            }
+            decideDirection();
 		}
 
 		public void keyPressed(KeyEvent e) { // 监听键盘按下
@@ -142,10 +161,30 @@ public class WindowManager {
                 case KeyEvent.VK_R: // 当按下R时，重新开始游戏
                     frame.resetGame(); //重置游戏
                     break;
-                
+                    case KeyEvent.VK_RIGHT: // 监听向右键
+                    bR = true;
+                    break;
+                case KeyEvent.VK_LEFT:// 监听向左键
+                    bL = true;
+                    break;
+                case KeyEvent.VK_UP: // 监听向上键
+                    bU = true;
+                    break;
+                case KeyEvent.VK_DOWN:// 监听向下键
+                    bD = true;
+                    break;
                 default:
                     break;
             }
+            decideDirection();
 		}
+         // 决定移动得方向
+        private void decideDirection() {
+            if (!bL && !bU && bR && !bD)homeTank.setDirection(Direction.R);
+            else if (bL && !bU && !bR && !bD)homeTank.setDirection(Direction.L);
+            else if (!bL && bU && !bR && !bD) homeTank.setDirection(Direction.U);
+            else if (!bL && !bU && !bR && bD) homeTank.setDirection(Direction.D);
+            else if (!bL && !bU && !bR && !bD)homeTank.setDirection(Direction.STOP);
+        }
 	}
 }
