@@ -6,7 +6,7 @@ import java.util.*;
  * 坦克类（适用敌方坦克和玩家坦克）
  */
 
-public class Tank extends GameObject {
+public abstract class Tank extends LivedGameObject implements Movable {
 	public static int speedX = 6, speedY = 6; // 坦克的移动速度
 	public static int count = 0; // 坦克的数量
 	private Direction direction = Direction.STOP; // 初始化状态为静止
@@ -45,7 +45,10 @@ public class Tank extends GameObject {
 		this.direction = dir;
 		this.tc = tc;
 	}
-
+	// 移动
+	public abstract void move(); 
+	// 发射
+	public abstract void fire();
 	// 画出坦克
 	public void draw(Graphics g) {
 		if (!live) {// 如果坦克死了
@@ -79,66 +82,73 @@ public class Tank extends GameObject {
 		move(); // 调用move函数
 	}
 
-	// 坦克移动
-	void move() {
+	// // 坦克移动
+	// public void move() {
 
-		// 记录移动前的坐标
-		this.oldX = x;
-		this.oldY = y;
+	// 	// 记录移动前的坐标
+	// 	this.oldX = x;
+	// 	this.oldY = y;
+	// 	//记录绘制方向
+	// 	if (this.direction != Direction.STOP) { // 暂停则不记录
+	// 		this.Kdirection = this.direction;
+	// 	}
+	// 	// 根据方向移动对应距离
+	// 	switch (direction) { // 选择移动方向
+	// 		case L:
+	// 			x -= speedX;
+	// 			break;
+	// 		case U:
+	// 			y -= speedY;
+	// 			break;
+	// 		case R:
+	// 			x += speedX;
+	// 			break;
+	// 		case D:
+	// 			y += speedY;
+	// 			break;
+	// 		case STOP:
+	// 			break;
+	// 	}
 
-		// 根据方向移动对应距离
-		switch (direction) { // 选择移动方向
-			case L:
-				x -= speedX;
-				break;
-			case U:
-				y -= speedY;
-				break;
-			case R:
-				x += speedX;
-				break;
-			case D:
-				y += speedY;
-				break;
-			case STOP:
-				break;
-		}
 
-		// 记录绘制图像得方向
-		if (this.direction != Direction.STOP) { // 若暂停则不移动
-			this.Kdirection = this.direction;
-		}
+	// 	// 防止越界，超过区域则恢复到边界
+	// 	if (x < 0)
+	// 		x = 0;
+	// 	if (y < 40)
+	// 		y = 40;
+	// 	if (x + Tank.width > GameFrame.Fram_width)
+	// 		x = GameFrame.Fram_width - Tank.width;
+	// 	if (y + Tank.length > GameFrame.Fram_length)
+	// 		y = GameFrame.Fram_length - Tank.length;
 
-		// 防止越界，超过区域则恢复到边界
-		if (x < 0)
-			x = 0;
-		if (y < 40)
-			y = 40;
-		if (x + Tank.width > GameFrame.Fram_width)
-			x = GameFrame.Fram_width - Tank.width;
-		if (y + Tank.length > GameFrame.Fram_length)
-			y = GameFrame.Fram_length - Tank.length;
+	// 	// 敌方坦克，随机路径
+	// 	if (!good) {
+	// 		Direction[] directons = Direction.values();// 获取所有方向得值
+	// 		if (step == 0) { // 步数移动完毕
+	// 			step = r.nextInt(12) + 3; // 随机步数
+	// 			int rn = r.nextInt(directons.length);
+	// 			direction = directons[rn]; // 产生随机方向
+	// 		}
+	// 		step--;// 每次移动一步
 
-		// 敌方坦克，随机路径
-		if (!good) {
-			Direction[] directons = Direction.values();// 获取所有方向得值
-			if (step == 0) { // 步数移动完毕
-				step = r.nextInt(12) + 3; // 随机步数
-				int rn = r.nextInt(directons.length);
-				direction = directons[rn]; // 产生随机方向
-			}
-			step--;// 每次移动一步
-
-			// 5% 的概率 发射子弹
-			if (r.nextInt(40) > 38)
-				this.fire();
-		}
-	}
+	// 		// 5% 的概率 发射子弹
+	// 		if (r.nextInt(40) > 38)
+	// 			this.fire();
+	// 	}
+	// }
 
 	// 恢复移动前的坐标
-	private void changToOldDir() {
+	public void restorePosition() {
 		x = oldX;
 		y = oldY;
+	}
+	// 碰撞检测
+	public boolean collide(GameObject obj){
+		return this.getRect().intersects(obj.getRect());
+	}
+	//越界检查
+	public boolean isOutOfBounds(){
+		return x<0||y<40||x+Tank.width>GameFrame.Fram_width||y+Tank.length>GameFrame.Fram_length;
 	}
 
 	// 监听键盘
@@ -229,16 +239,16 @@ public class Tank extends GameObject {
 		decideDirection(); // 释放键盘后确定移动方向
 	}
 
-	// 发射子弹
-	public Bullets fire() { // 开火方法
-		if (!live)// 如果坦克死了
-			return null;
-		int x = this.x + Tank.width / 2 - Bullets.width / 2; // 开火位置
-		int y = this.y + Tank.length / 2 - Bullets.length / 2;
-		Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc); // 没有给定方向时，向原来的方向发火
-		tc.getGameElements().getBullets().add(m);// 添加子弹
-		return m;
-	}
+	// // 发射子弹
+	// public Bullets fire() { // 开火方法
+	// 	if (this.isLive()==false)// 如果坦克死了
+	// 		return null;
+	// 	int x = this.x + Tank.width / 2 - Bullets.width / 2; // 开火位置
+	// 	int y = this.y + Tank.length / 2 - Bullets.length / 2;
+	// 	Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc); // 没有给定方向时，向原来的方向发火
+	// 	tc.getGameElements().getBullets().add(m);// 添加子弹
+	// 	return m;
+	// }
 
 	//
 	public Rectangle getRect() {
