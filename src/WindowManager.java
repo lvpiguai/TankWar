@@ -99,32 +99,32 @@ public class WindowManager {
             Tank.count = 12;
             Tank.speedX = 6;
             Tank.speedY = 6;
-            Bullets.speedX = 10;
-            Bullets.speedY = 10;
+            Bullet.speedX = 10;
+            Bullet.speedY = 10;
             frame.dispose();
             new GameFrame();
         } else if (command.equals("级别2")) {
             Tank.count = 12;
             Tank.speedX = 10;
             Tank.speedY = 10;
-            Bullets.speedX = 12;
-            Bullets.speedY = 12;
+            Bullet.speedX = 12;
+            Bullet.speedY = 12;
             frame.dispose();
             new GameFrame();
         } else if (command.equals("级别3")) {
             Tank.count = 20;
             Tank.speedX = 14;
             Tank.speedY = 14;
-            Bullets.speedX = 16;
-            Bullets.speedY = 16;
+            Bullet.speedX = 16;
+            Bullet.speedY = 16;
             frame.dispose();
             new GameFrame();
         } else if (command.equals("级别4")) {
             Tank.count = 20;
             Tank.speedX = 16;
             Tank.speedY = 16;
-            Bullets.speedX = 18;
-            Bullets.speedY = 18;
+            Bullet.speedX = 18;
+            Bullet.speedY = 18;
             frame.dispose();
             new GameFrame();
         }

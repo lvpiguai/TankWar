@@ -10,7 +10,7 @@ public abstract class Tank extends LivedGameObject implements Movable {
 	public static int speedX = 6, speedY = 6; // 坦克的移动速度
 	public static int count = 0; // 坦克的数量
 	private Direction direction = Direction.STOP; // 初始化状态为静止
-	private Direction Kdirection = Direction.U; // 记录绘制方向
+	private Direction oldDirection = Direction.U; // 记录绘制方向
 	GameFrame tc;
 
 	private boolean good;// true为己方坦克，false为敌方坦克
@@ -61,7 +61,7 @@ public abstract class Tank extends LivedGameObject implements Movable {
 		if (good)// 如果是己方坦克
 			new DrawBloodbBar().draw(g); // 玩家坦克的血量条
 
-		switch (Kdirection) {
+		switch (oldDirection) {
 			// 根据方向选择坦克的图片
 			case D:
 				g.drawImage(tankImags[0], x, y, null);
@@ -90,7 +90,7 @@ public abstract class Tank extends LivedGameObject implements Movable {
 	// 	this.oldY = y;
 	// 	//记录绘制方向
 	// 	if (this.direction != Direction.STOP) { // 暂停则不记录
-	// 		this.Kdirection = this.direction;
+	// 		this.olDirection = this.direction;
 	// 	}
 	// 	// 根据方向移动对应距离
 	// 	switch (direction) { // 选择移动方向
@@ -240,12 +240,12 @@ public abstract class Tank extends LivedGameObject implements Movable {
 	}
 
 	// // 发射子弹
-	// public Bullets fire() { // 开火方法
+	// public Bullet fire() { // 开火方法
 	// 	if (this.isLive()==false)// 如果坦克死了
 	// 		return null;
-	// 	int x = this.x + Tank.width / 2 - Bullets.width / 2; // 开火位置
-	// 	int y = this.y + Tank.length / 2 - Bullets.length / 2;
-	// 	Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc); // 没有给定方向时，向原来的方向发火
+	// 	int x = this.x + Tank.width / 2 - Bullet.width / 2; // 开火位置
+	// 	int y = this.y + Tank.length / 2 - Bullet.length / 2;
+	// 	Bullet m = new Bullet(x, y + 2, good, olDirection, this.tc); // 没有给定方向时，向原来的方向发火
 	// 	tc.getGameElements().getBullets().add(m);// 添加子弹
 	// 	return m;
 	// }

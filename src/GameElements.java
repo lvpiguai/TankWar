@@ -9,7 +9,7 @@ public class GameElements {
     private Home home = null;// 实例化home
     private List<BombTank> bombTanks = new ArrayList<>();
     private List<Tank> tanks = new ArrayList<>();
-    private List<Bullets> bullets = new ArrayList<>();
+    private List<Bullet> bullets = new ArrayList<>();
     private List<BrickWall> homeWall = new ArrayList<>();
     private List<BrickWall> otherWall = new ArrayList<>();
     private List<MetalWall> metalWall = new ArrayList<>();
@@ -71,7 +71,7 @@ public class GameElements {
 			t.draw(g);
 		}
         for (int i = 0; i < bullets.size(); i++) { // 画出每一个子弹
-			Bullets m = bullets.get(i);
+			Bullet m = bullets.get(i);
 			m.hitTanks(tanks); // 每一个子弹打到坦克上
 			m.hitTank(homeTank); // 每一个子弹打到自己家的坦克上时
 			m.hitHome(); // 每一个子弹打到家里时
@@ -225,7 +225,7 @@ public class GameElements {
         return tanks;
     }
     //获取子弹
-    public List<Bullets> getBullets() {
+    public List<Bullet> getBullets() {
         return bullets;
     }
     //获取家墙

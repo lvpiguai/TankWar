@@ -7,7 +7,7 @@ import java.util.Map;
  * 子弹类
  */
 
-public class Bullets {
+public class Bullet {
 	public static int speedX = 10;
 	public static int speedY = 10; // 子弹的全局静态速度
 
@@ -28,13 +28,13 @@ public class Bullets {
 
 	static {
 		bulletImages = new Image[] { // 不同方向的子弹
-				tk.getImage(Bullets.class.getClassLoader().getResource("images/bulletL.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletL.gif")),
 
-				tk.getImage(Bullets.class.getClassLoader().getResource("images/bulletU.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletU.gif")),
 
-				tk.getImage(Bullets.class.getClassLoader().getResource("images/bulletR.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletR.gif")),
 
-				tk.getImage(Bullets.class.getClassLoader().getResource("images/bulletD.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletD.gif")),
 
 		};
 
@@ -48,14 +48,14 @@ public class Bullets {
 
 	}
 
-	public Bullets(int x, int y, Direction dir) { // 构造函数1，传递位置和方向
+	public Bullet(int x, int y, Direction dir) { // 构造函数1，传递位置和方向
 		this.x = x;
 		this.y = y;
 		this.diretion = dir;
 	}
 
 	// 构造函数2，接受另外两个参数
-	public Bullets(int x, int y, boolean good, Direction dir, GameFrame tc) {
+	public Bullet(int x, int y, boolean good, Direction dir, GameFrame tc) {
 		this(x, y, dir);
 		this.good = good;
 		this.tc = tc;
@@ -93,7 +93,7 @@ public class Bullets {
 	// 画出子弹
 	public void draw(Graphics g) {
 		if (!live) {
-			tc.getGameElements().getBullets().remove(this);
+			tc.getGameElements().getBullet().remove(this);
 			return;
 		}
 
