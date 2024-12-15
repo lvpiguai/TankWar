@@ -3,7 +3,7 @@ import java.awt.*;
  * 抽象游戏元素对象类
  */
 public abstract class GameObject {
-    protected static int width,length;// 游戏元素的长宽
+    protected int width,length;// 游戏元素的长宽
     protected int x,y; // x,y坐标
 
     // 构造函数(给出坐标)

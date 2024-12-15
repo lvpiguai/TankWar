@@ -93,7 +93,7 @@ public class Bullet {
 	// 画出子弹
 	public void draw(Graphics g) {
 		if (!live) {
-			tc.getGameElements().getBullet().remove(this);
+			tc.getGameElements().getBullets().remove(this);
 			return;
 		}
 

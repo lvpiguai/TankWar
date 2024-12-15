@@ -7,19 +7,10 @@ import java.util.*;
  */
 
 public abstract class Tank extends LivedGameObject implements Movable {
-	public static int speedX = 6, speedY = 6; // 坦克的移动速度
-	public static int count = 0; // 坦克的数量
-	private Direction direction = Direction.STOP; // 初始化状态为静止
-	private Direction oldDirection = Direction.U; // 记录绘制方向
-	GameFrame tc;
-
-	private boolean good;// true为己方坦克，false为敌方坦克
+	public static int speedX, speedY; // 坦克的移动速度
+	private Direction direction; // 初始化状态为静止
+	private Direction oldDirection; // 记录绘制方向
 	private int oldX, oldY;// 坦克移动前的坐标
-	private int life = 200; // 初始生命值
-
-	private static Random r = new Random(); // 随机数变量
-	private int step = r.nextInt(10) + 5; // 产生一个随机数,随机模拟坦克的移动路径
-
 	private boolean bL = false, bU = false, bR = false, bD = false; // 按键状态
 
 	private static Toolkit tk = Toolkit.getDefaultToolkit();// 控制面板
@@ -29,126 +20,51 @@ public abstract class Tank extends LivedGameObject implements Movable {
 				tk.getImage(BombTank.class.getResource("Images/tankU.gif")),
 				tk.getImage(BombTank.class.getResource("Images/tankL.gif")),
 				tk.getImage(BombTank.class.getResource("Images/tankR.gif")), };
-		width = length = 35;// 坦克的大小
-
+				speedX = speedY = 6;
 	}
-
-	public Tank(int x, int y, boolean good) {// Tank的构造函数1
+	// Tank的构造函数
+	public Tank(int x, int y,Direction dir) {
 		super(x,y);
-		this.oldX = x;
-		this.oldY = y;
-		this.good = good;
+		width = length = 35;// 坦克的大小
+		direction = dir; // 初始化状态为静止
 	}
-
-	public Tank(int x, int y, boolean good, Direction dir, GameFrame tc) {// Tank的构造函数2
-		this(x, y, good);
-		this.direction = dir;
-		this.tc = tc;
-	}
-	// 移动
-	public abstract void move(); 
-	// 发射
-	public abstract void fire();
+	public abstract void move(); // 移动
+	public abstract void fire();// 发射
 	// 画出坦克
+	@Override
 	public void draw(Graphics g) {
-		if (!live) {// 如果坦克死了
-			if (!good) {//
-				tc.getGameElements().getTanks().remove(this); // 删除无效的
-			}
-			return;
-		}
-
-		if (good)// 如果是己方坦克
-			new DrawBloodbBar().draw(g); // 玩家坦克的血量条
-
 		switch (oldDirection) {
 			// 根据方向选择坦克的图片
 			case D:
 				g.drawImage(tankImags[0], x, y, null);
 				break;
-
 			case U:
 				g.drawImage(tankImags[1], x, y, null);
 				break;
 			case L:
 				g.drawImage(tankImags[2], x, y, null);
 				break;
-
 			case R:
 				g.drawImage(tankImags[3], x, y, null);
 				break;
-
+			default:break;
 		}
-		move(); // 调用move函数
 	}
-
-	// // 坦克移动
-	// public void move() {
-
-	// 	// 记录移动前的坐标
-	// 	this.oldX = x;
-	// 	this.oldY = y;
-	// 	//记录绘制方向
-	// 	if (this.direction != Direction.STOP) { // 暂停则不记录
-	// 		this.olDirection = this.direction;
-	// 	}
-	// 	// 根据方向移动对应距离
-	// 	switch (direction) { // 选择移动方向
-	// 		case L:
-	// 			x -= speedX;
-	// 			break;
-	// 		case U:
-	// 			y -= speedY;
-	// 			break;
-	// 		case R:
-	// 			x += speedX;
-	// 			break;
-	// 		case D:
-	// 			y += speedY;
-	// 			break;
-	// 		case STOP:
-	// 			break;
-	// 	}
-
-
-	// 	// 防止越界，超过区域则恢复到边界
-	// 	if (x < 0)
-	// 		x = 0;
-	// 	if (y < 40)
-	// 		y = 40;
-	// 	if (x + Tank.width > GameFrame.Fram_width)
-	// 		x = GameFrame.Fram_width - Tank.width;
-	// 	if (y + Tank.length > GameFrame.Fram_length)
-	// 		y = GameFrame.Fram_length - Tank.length;
-
-	// 	// 敌方坦克，随机路径
-	// 	if (!good) {
-	// 		Direction[] directons = Direction.values();// 获取所有方向得值
-	// 		if (step == 0) { // 步数移动完毕
-	// 			step = r.nextInt(12) + 3; // 随机步数
-	// 			int rn = r.nextInt(directons.length);
-	// 			direction = directons[rn]; // 产生随机方向
-	// 		}
-	// 		step--;// 每次移动一步
-
-	// 		// 5% 的概率 发射子弹
-	// 		if (r.nextInt(40) > 38)
-	// 			this.fire();
-	// 	}
-	// }
-
 	// 恢复移动前的坐标
+	@Override
 	public void restorePosition() {
 		x = oldX;
 		y = oldY;
 	}
 	// 碰撞检测
+	@Override
 	public boolean collide(GameObject obj){
 		return this.getRect().intersects(obj.getRect());
 	}
 	//越界检查
+	@Override
 	public boolean isOutOfBounds(){
-		return x<0||y<40||x+Tank.width>GameFrame.Fram_width||y+Tank.length>GameFrame.Fram_length;
+		return x<0||y<40||x+width>GameFrame.Fram_width||y+length>GameFrame.Fram_length;
 	}
 
 	// 监听键盘
@@ -239,118 +155,4 @@ public abstract class Tank extends LivedGameObject implements Movable {
 		decideDirection(); // 释放键盘后确定移动方向
 	}
 
-	// // 发射子弹
-	// public Bullet fire() { // 开火方法
-	// 	if (this.isLive()==false)// 如果坦克死了
-	// 		return null;
-	// 	int x = this.x + Tank.width / 2 - Bullet.width / 2; // 开火位置
-	// 	int y = this.y + Tank.length / 2 - Bullet.length / 2;
-	// 	Bullet m = new Bullet(x, y + 2, good, olDirection, this.tc); // 没有给定方向时，向原来的方向发火
-	// 	tc.getGameElements().getBullets().add(m);// 添加子弹
-	// 	return m;
-	// }
-
-	//
-	public Rectangle getRect() {
-		return new Rectangle(x, y, width, length);
-	}
-
-	public boolean isLive() {
-		return live;
-	}
-
-	public void setLive(boolean live) {
-		this.live = live;
-	}
-
-	public boolean isGood() {
-		return good;
-	}
-
-	public boolean collideWithWall(BrickWall w) { // 碰撞到普通墙时
-		if (this.live && this.getRect().intersects(w.getRect())) {
-			this.changToOldDir(); // 转换到原来的方向上去
-			return true;
-		}
-		return false;
-	}
-
-	public boolean collideWithWall(MetalWall w) { // 撞到金属墙
-		if (this.live && this.getRect().intersects(w.getRect())) {
-			this.changToOldDir();
-			return true;
-		}
-		return false;
-	}
-
-	public boolean collideRiver(River r) { // 撞到河流的时候
-		if (this.live && this.getRect().intersects(r.getRect())) {
-			this.changToOldDir();
-			return true;
-		}
-		return false;
-	}
-
-	public boolean collideHome(Home h) { // 撞到家的时候
-		if (this.live && this.getRect().intersects(h.getRect())) {
-			this.changToOldDir();
-			return true;
-		}
-		return false;
-	}
-
-	public boolean collideWithTanks(java.util.List<Tank> tanks) {// 撞到坦克时
-		for (int i = 0; i < tanks.size(); i++) {
-			Tank t = tanks.get(i);
-			if (this != t) {
-				if (this.live && t.isLive() && this.getRect().intersects(t.getRect())) {
-					this.changToOldDir();
-					t.changToOldDir();
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	public int getLife() {
-		return life;
-	}
-
-	public void setLife(int life) {
-		this.life = life;
-	}
-
-	// 血量条-内部类
-	private class DrawBloodbBar {
-		public void draw(Graphics g) {
-			Color c = g.getColor();// 保存颜色
-			g.setColor(Color.RED);// 设置为红色
-			g.drawRect(375, 585, width, 10);// 矩阵血量条
-			int w = width * life / 200; // 计算血量
-			g.fillRect(375, 585, w, 10);// 显示玩家坦克的血量条
-			g.setColor(c); // 恢复背景颜色
-		}
-	}
-
-	// 吃血包
-	public boolean eat(Blood b) {
-		if (this.live && b.isLive() && this.getRect().intersects(b.getRect())) {
-			if (this.life <= 100)
-				this.life = this.life + 100; // 每吃一个，增加100生命点
-			else
-				this.life = 200;
-			b.setLive(false);
-			return true;
-		}
-		return false;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
 }

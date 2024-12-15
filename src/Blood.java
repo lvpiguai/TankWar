@@ -6,7 +6,6 @@ import java.util.Random;
  */
 
 public class Blood {
-
 	public static final int width = 36;
 	public static final int length = 36;
 

@@ -16,7 +16,7 @@ public class River {
 	private static Image[] riverImags = null;
 
 	static { // 存储图片
-		riverImags = new Image[] { tk.getImage(BrickWall.class.getResource("Images/river.jpg")), };
+		riverImags = new Image[] { tk.getImage(GameFrame.class.getResource("Images/river.jpg")), };
 	}
 
 	public River(int x, int y, GameFrame tc) { // River的构造方法

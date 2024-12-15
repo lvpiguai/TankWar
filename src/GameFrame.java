@@ -10,15 +10,21 @@ public class GameFrame extends Frame{
 	public static final int Fram_width = 800; // 静态全局窗口大小
 	public static final int Fram_length = 600;// 静态全局窗口大小
 
-	private WindowManager windowManager = new WindowManager(this); // 窗口和菜单管理
-	private GameState gameState = new GameState();// 游戏状态
-	private GameElements gameElements = new GameElements(this);// 游戏元素
+	private WindowManager windowManager;// 窗口和菜单管理
+	private GameState gameState;// 游戏状态
+	private GameElements gameElements;// 游戏元素
 	public static void main(String[] args) {
-		new GameFrame(); // 实例化
+		new GameFrame().startGame(); //启动游戏
 	}
 
-	// 构造函数（初始化）
+	// 构造函数(创建对象)
 	public GameFrame() {
+		windowManager = new WindowManager(this); // 窗口和菜单管理
+		gameState = new GameState();// 游戏状态
+		gameElements = new GameElements(this);// 游戏元素
+	}
+	//启动游戏
+	public void startGame(){
 		windowManager.initWindow();// 初始化窗口
 		windowManager.createMenu();// 创建菜单
 		gameElements.initGameElements();// 初始化游戏元素
