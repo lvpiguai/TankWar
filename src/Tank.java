@@ -11,7 +11,6 @@ public abstract class Tank extends LivedGameObject implements Movable {
 	private Direction direction; // 初始化状态为静止
 	private Direction oldDirection; // 记录绘制方向
 	private int oldX, oldY;// 坦克移动前的坐标
-	private boolean bL = false, bU = false, bR = false, bD = false; // 按键状态
 
 	private static Toolkit tk = Toolkit.getDefaultToolkit();// 控制面板
 	private static Image[] tankImags = null; // 坦克图片数组
@@ -69,7 +68,7 @@ public abstract class Tank extends LivedGameObject implements Movable {
 
 	// 监听键盘
 	public void keyPressed(KeyEvent e) { // 接受键盘事件
-		int key = e.getKeyCode(); // 获取键
+		
 		switch (key) {
 			case KeyEvent.VK_R: // 当按下R时，重新开始游戏
 				tc.getGameElements().clearAllElements();

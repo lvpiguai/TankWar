@@ -137,7 +137,15 @@ public class WindowManager {
 		}
 
 		public void keyPressed(KeyEvent e) { // 监听键盘按下
-			frame.getGameElements().getHomeTank().keyPressed(e);
+			int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_R: // 当按下R时，重新开始游戏
+                    frame.resetGame(); //重置游戏
+                    break;
+                
+                default:
+                    break;
+            }
 		}
 	}
 }

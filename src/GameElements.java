@@ -19,8 +19,6 @@ public class GameElements {
     // 构造函数
     public GameElements(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
-        homeTank = new Tank(300, 560, true, Direction.STOP, gameFrame);// 己方坦克
-        home = new Home(373, 545, gameFrame);// 实例化home
     }
 
     // 初始化游戏元素
@@ -31,6 +29,8 @@ public class GameElements {
 		createTrees(); // 创建 trees
 		createTanks(); // 创建 tanks
 		theRiver.add(new River(85, 100, gameFrame)); // 创建河流
+		homeTank = new Tank(300, 560, Direction.STOP);// 己方坦克
+        home = new Home(373, 545, gameFrame);// 实例化home
 	}
 
     // 绘制所有元素
@@ -107,7 +107,11 @@ public class GameElements {
             river.draw(g);
         }
     }
-
+	//重置所有元素
+	public void reset(){
+		clearAllElements();// 清空
+		initGameElements();//重新初始化
+	}
     // 检查元素间的碰撞
     public void checkCollisions(Graphics g) {
         homeTank.collideWithTanks(tanks);// 撞到坦克
@@ -148,7 +152,6 @@ public class GameElements {
 		theRiver.clear();
 		trees.clear();
 	}
-
 
     // 创建家的墙
 	private void createHomeWalls() {

@@ -58,6 +58,10 @@ public class GameState {
     public GameStateType getCurrentState() {
         return currentState;
     }
+    // 重置游戏状态
+    public void reset() {
+        this.currentState = GameStateType.IN_PROGRESS;
+    }
 
     // 设置游戏状态为进行中
     public void setInProgress() {

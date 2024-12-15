@@ -76,4 +76,9 @@ public class GameFrame extends Frame{
 	public GameElements getGameElements() {
 		return gameElements;
 	}
+	// 重置游戏(开始新游戏)
+	public void resetGame(){
+		gameState.reset();
+		gameElements.reset();
+	}
 }
