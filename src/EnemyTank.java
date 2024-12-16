@@ -16,6 +16,7 @@ public class EnemyTank extends Tank{
     public EnemyTank(int x, int y,Direction dir,GameElements gameElements) {
         super(x, y, dir, gameElements);
         bloodVolume = 1; // 坦克血量为 1
+        width = length = 35;// 坦克的大小
     }
     public void move(){
         oldX = x;   // 保存移动前的坐标
@@ -32,7 +33,7 @@ public class EnemyTank extends Tank{
         }
         if(steps==0){ //步数走完了
             steps = r.nextInt(10)+5; //随机一个步数
-            direction = Direction.values()[r.nextInt(5)]; //随机选择一个方向
+            direction = Direction.values()[r.nextInt(4)]; //随机选择一个方向(不能停下)
         }
         steps--; //每次走一步
     }

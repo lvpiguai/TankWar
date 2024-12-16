@@ -12,7 +12,7 @@ public class Home extends LivedGameObject{
 	private static Toolkit tk = Toolkit.getDefaultToolkit(); // 全局静态变量
 	private static Image[] images;
 	static {
-		images = new Image[] { tk.getImage(BrickWall.class.getResource("Images/home.jpg")), };
+		images = new Image[] { tk.getImage(GameFrame.class.getResource("Images/home.jpg")), };
 	}
 
 	public Home(int x, int y) {// 构造函数，传递Home的参数并赋值

@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 public class WindowManager {
     private GameState gameState;
-    private GameFrame frame = new GameFrame();
+    private GameFrame frame;
 
     public WindowManager(GameFrame frame) {
         this.frame = frame;
@@ -119,23 +119,25 @@ public class WindowManager {
     // 键盘监听
     private class KeyMonitor extends KeyAdapter {
         boolean bR = false, bL = false, bU = false, bD = false;// 键盘监听
-        Tank homeTank = frame.getGameElements().getHomeTank(); // 获取己方坦克
+        HomeTank homeTank; // 获取己方坦克
 		public void keyReleased(KeyEvent e) { // 监听键盘释放
+            homeTank = frame.getGameElements().getHomeTank();
             int key = e.getKeyCode();
+            // System.out.println("Key released: " + KeyEvent.getKeyText(key));
             switch (key) {
-                case KeyEvent.VK_F: // 按键释放后才开火
+                case KeyEvent.VK_J: // 按键释放后才开火
                     homeTank.fire();
                     break;
-                case KeyEvent.VK_RIGHT:
+                case KeyEvent.VK_D:
                     bR = false;
                     break;
-                case KeyEvent.VK_LEFT:
+                case KeyEvent.VK_A:
                     bL = false;
                     break;
-                case KeyEvent.VK_UP:
+                case KeyEvent.VK_W:
                     bU = false;
                     break;
-                case KeyEvent.VK_DOWN:
+                case KeyEvent.VK_S:
                     bD = false;
                     break;
             }
@@ -143,21 +145,23 @@ public class WindowManager {
 		}
 
 		public void keyPressed(KeyEvent e) { // 监听键盘按下
+            homeTank = frame.getGameElements().getHomeTank();
 			int key = e.getKeyCode();
+           // System.out.println("Key pressed: " + KeyEvent.getKeyText(key));  // 调试输出
             switch (key) {
                 case KeyEvent.VK_R: // 当按下R时，重新开始游戏
                     frame.resetGame(); //重置游戏
                     break;
-                    case KeyEvent.VK_RIGHT: // 监听向右键
+                    case KeyEvent.VK_D: // 监听向右键
                     bR = true;
                     break;
-                case KeyEvent.VK_LEFT:// 监听向左键
+                case KeyEvent.VK_A:// 监听向左键
                     bL = true;
                     break;
-                case KeyEvent.VK_UP: // 监听向上键
+                case KeyEvent.VK_W: // 监听向上键
                     bU = true;
                     break;
-                case KeyEvent.VK_DOWN:// 监听向下键
+                case KeyEvent.VK_S:// 监听向下键
                     bD = true;
                     break;
                 default:

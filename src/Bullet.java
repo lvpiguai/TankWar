@@ -11,36 +11,21 @@ public class Bullet extends LivedGameObject implements Movable {
 	public static int speedY = 10; // 子弹的全局静态速度
 	Direction diretion;
 	private boolean good;
-	private static Toolkit tk = Toolkit.getDefaultToolkit();
-	private static Image[] bulletImages = null;
-	private static Map<String, Image> imgs = new HashMap<String, Image>(); // 定义Map键值对，是不同方向对应不同的弹头
-
-	static {
-		bulletImages = new Image[] { // 不同方向的子弹
-				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletL.gif")),
-
-				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletU.gif")),
-
-				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletR.gif")),
-
-				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletD.gif")),
-
-		};
-
-		imgs.put("L", bulletImages[0]); // 加入Map容器
-
-		imgs.put("U", bulletImages[1]);
-
-		imgs.put("R", bulletImages[2]);
-
-		imgs.put("D", bulletImages[3]);
-
+	private static Image[] images = null;
+	static{
+		String[]strArr = new String[]{"Images/bulletU.gif","Images/bulletD.gif","Images/bulletL.gif","Images/bulletR.gif"};
+		images = new Image[strArr.length];
+		for(int i=0;i<strArr.length;i++){
+			images[i] = Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource(strArr[i]));
+		}
 	}
 	// 构造函数，传递位置和方向和是否是己方子弹的标记
 	public Bullet(int x, int y, Direction dir, boolean good) { 
 		super(x, y);
 		this.diretion = dir;
 		this.good = good;
+		bloodVolume = 1;
+		width = length = 10;
 	}
 	// 移动子弹
 	public void move() {
@@ -80,20 +65,7 @@ public class Bullet extends LivedGameObject implements Movable {
 	// 画出子弹
 	@Override
 	public void draw(Graphics g) {
-		switch (diretion) { // 选择不同方向的子弹
-			case L:
-				g.drawImage(imgs.get("L"), x, y, null);
-				break;
-			case U:
-				g.drawImage(imgs.get("U"), x, y, null);
-				break;
-			case R:
-				g.drawImage(imgs.get("R"), x, y, null);
-				break;
-			case D:
-				g.drawImage(imgs.get("D"), x, y, null);
-				break;
-		}
+		g.drawImage(images[diretion.ordinal()], x, y, null);
 	}
 	//越界检查
 	@Override

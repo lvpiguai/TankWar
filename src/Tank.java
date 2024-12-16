@@ -22,8 +22,8 @@ public abstract class Tank extends LivedGameObject implements Movable {
 	// Tank的构造函数
 	public Tank(int x, int y,Direction dir,GameElements gameElements) {
 		super(x,y);
-		width = length = 35;// 坦克的大小
 		direction = dir; // 初始化状态为静止
+		oldDirection = Direction.U;//初始向上
 		this.gameElements = gameElements;// 游戏元素
 	}
 	public abstract void move(); // 移动

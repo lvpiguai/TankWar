@@ -15,7 +15,7 @@ public class GameState {
     // // 绘制游戏状态信息到屏幕上
 	public void drawState(Graphics g,GameElements gameElements) {
 		Color c = g.getColor(); // 保存原本的颜色
-		g.setColor(Color.green); // 设置为绿色
+		g.setColor(Color.GREEN); // 设置为绿色
 
 		Font f1 = g.getFont(); // 保存原本的字体
 		Font font1 = new Font("TimesRoman", Font.BOLD, 20); // 设置新的字体
@@ -31,9 +31,6 @@ public class GameState {
 		g.setFont(font2);
 		g.drawString("" + gameElements.getHomeTank().getBloodVolume(), 650, 70);
 
-		g.setFont(f1);// 恢复原本字体
-		g.setColor(c); // 恢复颜色
-
         // 如果玩家赢了（条件是敌方坦克全灭、大本营健在、玩家坦克仍有血量）
 		if (isWon()) {
 			Font f = g.getFont();
@@ -48,6 +45,8 @@ public class GameState {
 			g.drawString("你输了！ ", 310, 300);
 			g.setFont(f);
 		}
+        g.setFont(f1);// 恢复原本字体
+		g.setColor(c); // 恢复颜色
 	}
 
     // 获取当前游戏状态

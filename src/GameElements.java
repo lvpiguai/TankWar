@@ -28,35 +28,36 @@ public class GameElements {
 		createTrees(); // 创建 trees
 		createEnemyTanks(); // 创建 enemyTanks
 		rivers.add(new River(85, 100)); // 创建河流
-		homeTank = new HomeTank(300, 560, Direction.STOP,this);// 己方坦克
+		homeTank = new HomeTank(280, 520, Direction.STOP,this);// 己方坦克
         home = new Home(373, 545);// 实例化home
+		bloods.add(new Blood(155,196));
 	}
     // 绘制所有元素
     public void drawElements(Graphics g) {
 		home.draw(g); // 画出home
 		homeTank.draw(g); // 画出自己家的坦克
-        for(Blood b:bloods){
+        for(Blood b:bloods){//血包
 			b.draw(g);
 		}
-		for(BombTank bt:bombTanks){
+		for(BombTank bt:bombTanks){//爆炸
 			bt.draw(g);
 		}
-		for(Tree t:trees){
+		for(Tree t:trees){//树
 			t.draw(g);
 		}
-		for(EnemyTank t:enemyTanks){
+		for(EnemyTank t:enemyTanks){//敌方坦克
 			t.draw(g);
 		}
-		for(Bullet b:bullets){
+		for(Bullet b:bullets){//子弹
 			b.draw(g);
 		}
-		for(BrickWall w:brickWalls){
+		for(BrickWall w:brickWalls){//砖墙
 			w.draw(g);
 		}
-		for(MetalWall w:metalWalls){
+		for(MetalWall w:metalWalls){//金属墙
 			w.draw(g);
 		}
-		for(River r:rivers){
+		for(River r:rivers){//河流
 			r.draw(g);
 		}
     }
@@ -82,9 +83,10 @@ public class GameElements {
 					}
 				}	
 			}
-			else{
+			else{ //敌方子弹
 				if(b.collide(homeTank)){
 					homeTank.beHited();//坦克被击中
+					bombTanks.add(new BombTank(homeTank.getX(),homeTank.getY())); //创建bombTank
 					b.onHit();//子弹命中
 				}else if(b.collide(home)){//家被击中
 					home.beHited();//家被击中
@@ -163,10 +165,7 @@ public class GameElements {
 		}
 		for(Blood b:bloods){ //血包检测
 			if(t.collide(b)){
-				b.setBloodVolume(0); //删除原来哪个
-				Blood newBlood = new Blood(0, 0);
-				newBlood.setStep(b.getStep()+1);
-				bloods.add(newBlood);//创建一个新的血包
+				b.setBloodVolume(0);//血量为0
 				t.heal();//治愈
 			}
 		}
@@ -252,6 +251,9 @@ public class GameElements {
 				--i;	
 			}	
 		}
+		if(bloods.size()==0){ //血包为0
+			bloods.add(new Blood(155,196));
+		}
 	}
 	//移动逻辑
 	private void moveAndFire() {
@@ -264,10 +266,10 @@ public class GameElements {
 				t.fire();
 			}
 		}
-		for(Bullet b:bullets){ 
+		for(Bullet b:bullets){ // 移动子弹
 			b.move();
 		}
-		for(Blood b:bloods){
+		for(Blood b:bloods){//血包
 			b.move();	
 		}
 	}
