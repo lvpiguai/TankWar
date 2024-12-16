@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 
 /**
  * 坦克类（适用敌方坦克和玩家坦克）
@@ -11,7 +9,7 @@ public abstract class Tank extends LivedGameObject implements Movable {
 	protected Direction direction; // 初始化状态为静止
 	protected Direction oldDirection; // 记录绘制方向
 	protected int oldX, oldY;// 坦克移动前的坐标
-
+	protected GameElements gameElements;// 游戏元素
 	private static Toolkit tk = Toolkit.getDefaultToolkit();// 控制面板
 	private static Image[] tankImags = null; // 坦克图片数组
 	static {
@@ -22,13 +20,14 @@ public abstract class Tank extends LivedGameObject implements Movable {
 				speedX = speedY = 6;
 	}
 	// Tank的构造函数
-	public Tank(int x, int y,Direction dir) {
+	public Tank(int x, int y,Direction dir,GameElements gameElements) {
 		super(x,y);
 		width = length = 35;// 坦克的大小
 		direction = dir; // 初始化状态为静止
+		this.gameElements = gameElements;// 游戏元素
 	}
 	public abstract void move(); // 移动
-	public abstract void fire();// 发射
+	public abstract void fire();
 	// 画出坦克
 	@Override
 	public void draw(Graphics g) {
@@ -50,10 +49,19 @@ public abstract class Tank extends LivedGameObject implements Movable {
 		}
 	}
 	// 恢复移动前的坐标
-	@Override
 	public void restorePosition() {
 		x = oldX;
 		y = oldY;
+	}
+	//坦克被击中
+	public void beHited() {
+		setBloodVolume(bloodVolume - 1);
+	}
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
 	}
 	// 碰撞检测
 	@Override

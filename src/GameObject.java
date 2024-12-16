@@ -5,7 +5,6 @@ import java.awt.*;
 public abstract class GameObject {
     protected int width,length;// 游戏元素的长宽
     protected int x,y; // x,y坐标
-
     // 构造函数(给出坐标)
     public GameObject(int x, int y) {
         this.x = x;

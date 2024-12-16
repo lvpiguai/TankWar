@@ -3,12 +3,8 @@ import java.awt.*;
 /**
  * 砖墙类（子弹可打穿）
  */
-public class BrickWall {
-	public static final int width = 20; // 设置墙的固定参数
-	public static final int length = 20;
-	int x, y;
-
-	GameFrame tc;
+public class BrickWall extends LivedGameObject{
+	
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] wallImags = null;
 	static {
@@ -16,10 +12,12 @@ public class BrickWall {
 				tk.getImage(BrickWall.class.getResource("Images/commonWall.gif")), };
 	}
 
-	public BrickWall(int x, int y, GameFrame tc) { // 构造函数
-		this.x = x;
-		this.y = y;
-		this.tc = tc; // 获得界面控制
+	public BrickWall(int x, int y) { // 构造函数
+		super(x, y);
+		width = length = 20;
+	}
+	public void beHited() { // 被击中
+		setBloodVolume(bloodVolume - 1);
 	}
 
 	public void draw(Graphics g) {// 画commonWall

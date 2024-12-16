@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.List;
 
 public class GameState {
     public enum GameStateType { // 游戏状态
@@ -9,7 +8,7 @@ public class GameState {
         LOST         // 游戏失败
     }
     private GameStateType currentState; // 当前游戏状态
-
+    private int gameLevel = 1;
     public GameState() {// 默认游戏状态为进行中
         this.currentState = GameStateType.IN_PROGRESS;
     }
@@ -25,30 +24,27 @@ public class GameState {
 		g.setFont(font1);
 		g.drawString("区域内还有敌方坦克: ", 200, 70 ); 
 		g.setFont(font2);
-		g.drawString("" + gameElements.getTanks().size(), 400, 70);
+		g.drawString("" + gameElements.getEnemyTanks().size(), 400, 70);
 		// 显示剩余生命值
 		g.setFont(font1);
 		g.drawString("剩余生命值: ", 500, 70);
 		g.setFont(font2);
-		g.drawString("" + gameElements.getHomeTank().getLife(), 650, 70);
+		g.drawString("" + gameElements.getHomeTank().getBloodVolume(), 650, 70);
 
 		g.setFont(f1);// 恢复原本字体
 		g.setColor(c); // 恢复颜色
 
         // 如果玩家赢了（条件是敌方坦克全灭、大本营健在、玩家坦克仍有血量）
-		if (gameElements.getTanks().size() == 0 && gameElements.getHome().isLive() &&  gameElements.getHomeTank().isLive()) {
+		if (isWon()) {
 			Font f = g.getFont();
 			g.setFont(new Font("TimesRoman", Font.BOLD, 60));
-            gameElements.getOtherWall().clear();
 			g.drawString("你赢了！ ", 310, 300);
 			g.setFont(f);
 		}
 		// 如果玩家输了
-		if (gameElements.getHomeTank().isLive() == false) {
+		if (isLost()) {
 			Font f = g.getFont();
 			g.setFont(new Font("TimesRoman", Font.BOLD, 40));
-			gameElements.getTanks().clear();
-			gameElements.getBullets().clear();
 			g.drawString("你输了！ ", 310, 300);
 			g.setFont(f);
 		}
@@ -61,6 +57,14 @@ public class GameState {
     // 重置游戏状态
     public void reset() {
         this.currentState = GameStateType.IN_PROGRESS;
+    }
+    // 获取当前游戏级别
+    public int getGameLevel() {
+        return gameLevel;
+    }
+    // 设置游戏级别
+    public void setGameLevel(int level) {
+        this.gameLevel = level;
     }
 
     // 设置游戏状态为进行中
