@@ -14,8 +14,8 @@ public class River extends GameObject {
 
 	public River(int x, int y) { // River的构造方法
 		super(x, y);
-		width = 40;
-		length = 100;
+		width = 55;
+		length = 154;
 	}
 
 	public void draw(Graphics g) {

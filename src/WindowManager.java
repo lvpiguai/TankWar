@@ -53,11 +53,10 @@ public class WindowManager {
                 item.addActionListener(e -> handleMenuAction(e.getActionCommand())); // 添加点击监视器
             }
         }
-
-        frame.setMenuBar(menuBar);
     }
     // 处理菜单点击事件
     private void handleMenuAction(String command) {
+        System.out.println("Menu item clicked: " + command);
         switch (command) {
             case "开始新游戏":
                 if (showConfirmationDialog("您确认要开始新游戏！")) {
@@ -65,8 +64,11 @@ public class WindowManager {
                 }
                 break;
             case "暂停":
+                gameState.setPaused(); // 暂停游戏
+                break;
             case "继续":
-                gameState.togglePause(); // 切换暂停状态
+                gameState.setInProgress(); // 继续游戏
+                System.out.println(gameState.getCurrentState());
                 break;
             case "退出":
                 gameState.setPaused(); // 暂停游戏
@@ -78,7 +80,7 @@ public class WindowManager {
                 break;
             case "游戏说明":
                 gameState.setPaused(); // 暂停游戏
-                JOptionPane.showMessageDialog(frame, "用→ ← ↑ ↓控制方向，F键盘发射，R重新开始！", "提示！", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "用WASD控制方向，J键发射，R键重新开始！", "提示！", JOptionPane.INFORMATION_MESSAGE);
                 gameState.setInProgress(); // 游戏继续
                 break;
             case "级别1":

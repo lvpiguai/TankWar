@@ -33,6 +33,10 @@ public class GameState {
 
         // 如果玩家赢了（条件是敌方坦克全灭、大本营健在、玩家坦克仍有血量）
 		if (isWon()) {
+            g.clearRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length);// 清空屏幕
+            g.setColor(Color.GRAY); //用灰色颜色填充
+            g.fillRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length); // 用灰色背景填充
+            g.setColor(Color.GREEN);
 			Font f = g.getFont();
 			g.setFont(new Font("TimesRoman", Font.BOLD, 60));
 			g.drawString("你赢了！ ", 310, 300);
@@ -40,8 +44,12 @@ public class GameState {
 		}
 		// 如果玩家输了
 		if (isLost()) {
+            g.clearRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length);// 清空屏幕
+            g.setColor(Color.GRAY); //用灰色颜色填充
+            g.fillRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length); // 用灰色背景填充
+            g.setColor(Color.GREEN);
 			Font f = g.getFont();
-			g.setFont(new Font("TimesRoman", Font.BOLD, 40));
+			g.setFont(new Font("TimesRoman", Font.BOLD, 60));
 			g.drawString("你输了！ ", 310, 300);
 			g.setFont(f);
 		}

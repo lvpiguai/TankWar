@@ -45,8 +45,14 @@ public class HomeTank extends Tank {
             setBloodVolume(bloodVolume + 1);
     }
 
-    public void draw(Graphics g) { // 画出坦克
+    public void draw(Graphics g) { // 画出坦克 及血条
         g.drawImage(images[oldDirection.ordinal()], x, y, null);
+        Color c = g.getColor();
+        g.setColor(Color.RED);
+        g.drawRect(375, 585, width, 10);// 显示玩家坦克的血量条
+        int w = width * bloodVolume / 10;
+        g.fillRect(375, 585, w, 10);// 显示玩家坦克的血量条
+        g.setColor(c);
     }
 
     public void fire() { // 发射子弹

@@ -19,8 +19,8 @@ public class GameFrame extends Frame{
 
 	// 构造函数(创建对象)
 	public GameFrame() {
+		gameState = new GameState();// 游戏状态 (必须在windowManager之前)
 		windowManager = new WindowManager(this); // 窗口和菜单管理
-		gameState = new GameState();// 游戏状态
 		gameElements = new GameElements(gameState);// 游戏元素
 	}
 	//启动游戏
@@ -33,9 +33,12 @@ public class GameFrame extends Frame{
 	// 把任务包装成可供线程执行的对象
 	private class GameLoopThread implements Runnable {// 实现RUNABLE接口,
 		public void run() {
-			while (gameState.isInProgress()) {//游戏进行中
-				repaint();// 重绘所有组件
-				gameElements.update();	//更新所有游戏元素
+			System.out.println(gameState.getCurrentState());
+			while (true) {//游戏进行中
+				if(gameState.isInProgress()){
+					repaint();// 重绘所有组件
+					gameElements.update();	//更新所有游戏元素
+				}
 				try {
 					Thread.sleep(50); // 休眠，避免绘图速度过快
 				} catch (InterruptedException e) {// 线程中断异常
@@ -60,8 +63,8 @@ public class GameFrame extends Frame{
 	}
 	// 画出游戏界面到缓冲区g
 	public void framPaint(Graphics g) {
-		gameState.drawState(g, gameElements);// 画出游戏状态
 		gameElements.drawElements(g);// 画出所有元素
+		gameState.drawState(g, gameElements);// 画出游戏状态
 	}
 	// 提供一个 get 方法访问 gameState
 	public GameState getGameState() {
