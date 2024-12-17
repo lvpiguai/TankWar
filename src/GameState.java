@@ -14,7 +14,7 @@ public class GameState {
         this.currentState = GameStateType.IN_PROGRESS;
         startTime = System.currentTimeMillis();
     }
-    // // 绘制游戏状态信息到屏幕上
+    // 绘制游戏状态信息到屏幕上
 	public void drawState(Graphics g,GameElements gameElements) {
 		Color c = g.getColor(); // 保存原本的颜色
 		g.setColor(Color.GREEN); // 设置为绿色
