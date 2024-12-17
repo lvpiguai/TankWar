@@ -171,7 +171,7 @@ public class GameElements {
 		}
 	}
 	//清空所有元素
-	public void clearAllElements() {
+	private void clearAllElements() {
 		enemyTanks.clear();
 		bullets.clear();
 		brickWalls.clear();

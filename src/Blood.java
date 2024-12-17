@@ -23,6 +23,7 @@ public class Blood extends LivedGameObject{
 		posIdx = r.nextInt(poition.length);//随机一个位置
 	}
 
+	@Override
 	public void draw(Graphics g) {
 		g.drawImage(images[0], x, y, null);
 	}

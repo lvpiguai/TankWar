@@ -9,8 +9,10 @@ public class GameState {
     }
     private GameStateType currentState; // 当前游戏状态
     private int gameLevel = 1;
+    private long startTime; // 游戏开始时间
     public GameState() {// 默认游戏状态为进行中
         this.currentState = GameStateType.IN_PROGRESS;
+        startTime = System.currentTimeMillis();
     }
     // // 绘制游戏状态信息到屏幕上
 	public void drawState(Graphics g,GameElements gameElements) {
@@ -19,28 +21,26 @@ public class GameState {
 
 		Font f1 = g.getFont(); // 保存原本的字体
 		Font font1 = new Font("TimesRoman", Font.BOLD, 20); // 设置新的字体
-		Font font2 = new Font("TimesRoman", Font.BOLD, 30); // 设置新的字体
+        //显示时间
+        long elapsedTime = (System.currentTimeMillis() - startTime) / 1000; // 计算经过的秒数
+        g.setFont(font1);
+        g.drawString("已用时间: " + elapsedTime + " 秒", 50, 70); // 在屏幕上显示时间
 		// 显示地方坦克数目
 		g.setFont(font1);
-		g.drawString("区域内还有敌方坦克: ", 200, 70 ); 
-		g.setFont(font2);
-		g.drawString("" + gameElements.getEnemyTanks().size(), 400, 70);
+		g.drawString("区域内还有敌方坦克: ", 230, 70 ); 
+		g.drawString("" + gameElements.getEnemyTanks().size(), 430, 70);
 		// 显示剩余生命值
 		g.setFont(font1);
 		g.drawString("剩余生命值: ", 500, 70);
-		g.setFont(font2);
-		g.drawString("" + gameElements.getHomeTank().getBloodVolume(), 650, 70);
-
+		g.drawString("" + gameElements.getHomeTank().getBloodVolume(), 620, 70);
+        
         // 如果玩家赢了（条件是敌方坦克全灭、大本营健在、玩家坦克仍有血量）
 		if (isWon()) {
             g.clearRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length);// 清空屏幕
             g.setColor(Color.GRAY); //用灰色颜色填充
             g.fillRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length); // 用灰色背景填充
             g.setColor(Color.GREEN);
-			Font f = g.getFont();
-			g.setFont(new Font("TimesRoman", Font.BOLD, 60));
 			g.drawString("你赢了！ ", 310, 300);
-			g.setFont(f);
 		}
 		// 如果玩家输了
 		if (isLost()) {
@@ -48,10 +48,7 @@ public class GameState {
             g.setColor(Color.GRAY); //用灰色颜色填充
             g.fillRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length); // 用灰色背景填充
             g.setColor(Color.GREEN);
-			Font f = g.getFont();
-			g.setFont(new Font("TimesRoman", Font.BOLD, 60));
 			g.drawString("你输了！ ", 310, 300);
-			g.setFont(f);
 		}
         g.setFont(f1);// 恢复原本字体
 		g.setColor(c); // 恢复颜色
@@ -61,9 +58,10 @@ public class GameState {
     public GameStateType getCurrentState() {
         return currentState;
     }
-    // 重置游戏状态
+    // 重置游戏状态和游戏开始时间
     public void reset() {
         this.currentState = GameStateType.IN_PROGRESS;
+        startTime = System.currentTimeMillis();
     }
     // 获取当前游戏级别
     public int getGameLevel() {

@@ -120,7 +120,7 @@ public class WindowManager {
 
     // 键盘监听
     private class KeyMonitor extends KeyAdapter {
-        boolean bR = false, bL = false, bU = false, bD = false;// 键盘监听
+        private boolean bR = false, bL = false, bU = false, bD = false;// 键盘监听
         HomeTank homeTank; // 获取己方坦克
 		public void keyReleased(KeyEvent e) { // 监听键盘释放
             homeTank = frame.getGameElements().getHomeTank();
