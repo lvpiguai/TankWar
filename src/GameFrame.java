@@ -38,7 +38,7 @@ public class GameFrame extends Frame{
 	// 把任务包装成可供线程执行的对象
 	private class GameLoopThread implements Runnable {// 实现RUNABLE接口,
 		public void run() {
-			System.out.println(gameState.getCurrentState());
+			//System.out.println(gameState.getCurrentState());
 			while (true) {//游戏进行中
 				if(gameState.isInProgress()){
 					repaint();// 重绘所有组件
