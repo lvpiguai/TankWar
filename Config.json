@@ -132,7 +132,6 @@
     },
     "windowManagerConfig": {
         "windowTitle": "坦克大战——(重新开始：R键  开火：F键)",
-        "backgroundColor": "GREEN",
         "windowWidth": 800,
         "windowHeight": 600,
         "fontName": "TimesRoman",

@@ -1,7 +1,6 @@
 import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.IOException;
-import java.awt.Color;
 
 public class Config {
 
@@ -27,7 +26,7 @@ public class Config {
         System.out.println("正在加载配置文件: " + filePath); // 打印出文件路径，检查是否正确
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(filePath)) {
-            Config config = gson.fromJson(reader, Config.class);
+            AppConfig config = gson.fromJson(reader, AppConfig.class);
             // 配置加载到静态字段
             bloodConfig = config.bloodConfig;
             bombTankConfig = config.bombTankConfig;
@@ -50,41 +49,34 @@ public class Config {
                 System.out.println("配置文件加载成功");
                 System.out.println("加载的配置文件内容: " + config);
             }
-            
-            if (config.gameStateConfig == null) {
-                System.err.println("gameStateConfig 加载失败！");
-            } else {
-                System.out.println("gameStateConfig 加载成功！");
-            }
-            
             if (config.gameFrameConfig == null) {
                 System.err.println("gameFrameConfig 加载失败！");
             } else {
                 System.out.println("gameFrameConfig 加载成功！");
             }
 
-            if (config.gameElementsConfig == null) {
-                System.err.println("gameElementsConfig 加载失败！");
-            } else {
-                System.out.println("gameElementsConfig 加载成功！");
-            }
-
-            if(config.windowManagerConfig == null) {
-                System.err.println("windowManagerConfig 加载失败！");
-            } else{
-                System.out.println("windowManagerConfig 加载成功"); 
-            }
-
-            if(config.bloodConfig == null) {
-                System.err.println("bloodConfig 加载失败");
-            } else{
-                System.out.println("bloodConfig 加载成功");
-            }
-
         }catch (IOException e) {
             System.err.println("配置文件加载失败: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    //顶层类（存储反序列化的数据）
+    public static class AppConfig {
+        BloodConfig bloodConfig;
+        BombTankConfig bombTankConfig;
+        BrickWallConfig brickWallConfig;
+        BulletConfig bulletConfig;
+        TankConfig tankConfig;
+        EnemyTankConfig enemyTankConfig;
+        GameStateConfig gameStateConfig;
+        HomeConfig homeConfig;
+        HomeTankConfig homeTankConfig;
+        MetalWallConfig metalWallConfig;
+        RiverConfig riverConfig;
+        TreeConfig treeConfig;
+        WindowManagerConfig windowManagerConfig;
+        GameElementsConfig gameElementsConfig;
+        GameFrameConfig gameFrameConfig;
     }
     // 各种配置类
     public static class BloodConfig {
@@ -180,7 +172,6 @@ public class Config {
     }
     public static class WindowManagerConfig {
         String windowTitle;           // 窗口标题
-        Color backgroundColor;       // 背景颜色
         int windowWidth;             // 窗口宽度
         int windowHeight;            // 窗口高度
         String fontName;             // 字体名称

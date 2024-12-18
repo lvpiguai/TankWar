@@ -18,7 +18,7 @@ public class WindowManager {
       frame.setLocationRelativeTo(null); // 让窗体居中
       frame.setTitle(Config.windowManagerConfig.windowTitle); // 使用配置文件中的窗口标题
       frame.setResizable(false); // 禁止改变窗口大小
-      frame.setBackground(Config.windowManagerConfig.backgroundColor); // 使用配置文件中的背景颜色
+      frame.setBackground(Color.GREEN);
       frame.setVisible(true); // 设置窗口可见
       frame.addWindowListener(new WindowAdapter() { // 监听窗口关闭为退出程序
           public void windowClosing(WindowEvent e) {
