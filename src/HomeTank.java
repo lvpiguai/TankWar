@@ -4,7 +4,8 @@ public class HomeTank extends Tank {
     public HomeTank(int x, int y, Direction dir, GameElements gameElements) {
         super(x, y, dir, gameElements);
         bloodVolume = Config.homeTankConfig.bloodVolume; // 使用配置文件中的血量
-        width = length = Config.homeTankConfig.width; // 使用配置文件中的宽度和长度
+        width = Config.homeTankConfig.width; // 使用配置文件中的宽度和长度
+        length = Config.homeTankConfig.length;
     }
 
     private static Image[] images = null;
@@ -50,8 +51,8 @@ public class HomeTank extends Tank {
         Color c = g.getColor();
         g.setColor(Color.RED);
         // 使用配置文件中的血条位置和大小
-        g.drawRect(Config.homeTankConfig.healthBarX, Config.homeTankConfig.healthBarY, width, Config.homeTankConfig.healthBarHeight);
-        int w = width * bloodVolume / 10;
+        g.drawRect(Config.homeTankConfig.healthBarX, Config.homeTankConfig.healthBarY,Config.homeTankConfig.healthBarWidth , Config.homeTankConfig.healthBarHeight);
+        int w = (Config.homeTankConfig.healthBarWidth) * (bloodVolume / Config.homeTankConfig.bloodVolume);
         g.fillRect(Config.homeTankConfig.healthBarX, Config.homeTankConfig.healthBarY, w, Config.homeTankConfig.healthBarHeight);
         g.setColor(c);
     }

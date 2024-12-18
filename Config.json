@@ -119,7 +119,7 @@
         ],
         "healthBarX": 375,
         "healthBarY": 585,
-        "healthBarWidth": 60,
+        "healthBarWidth": 40,
         "healthBarHeight": 10
     },
     "metalWallConfig": {
