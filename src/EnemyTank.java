@@ -3,20 +3,21 @@ import java.util.Random;
 
 public class EnemyTank extends Tank{
     private static Random r = new Random();// 随机数
-    private int steps = r.nextInt(10)+5;// 移动步数
+    private int steps;// 移动步数
     private static Image[] images = null;
     static { // 初始化坦克图片
-        String[] strArr = {"Images/tankD.gif","Images/tankU.gif","Images/tankL.gif","Images/tankR.gif"};
-        images = new Image[strArr.length];
-        for (int i = 0; i < strArr.length; i++) {
-            images[i] = Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource(strArr[i]));
+        images = new Image[Config.enemyTankConfig.imagePaths.length];
+        for (int i = 0; i < Config.enemyTankConfig.imagePaths.length; i++) {
+            images[i] = Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource(Config.enemyTankConfig.imagePaths[i]));
         }
     }
     
     public EnemyTank(int x, int y,Direction dir,GameElements gameElements) {
         super(x, y, dir, gameElements);
-        bloodVolume = 1; // 坦克血量为 1
-        width = length = 35;// 坦克的大小
+        bloodVolume = Config.enemyTankConfig.bloodVolume; // 坦克血量
+        width = Config.enemyTankConfig.width; // 坦克的大小
+        length = Config.enemyTankConfig.length;
+        steps = r.nextInt(Config.enemyTankConfig.maxSteps - Config.enemyTankConfig.minSteps + 1) + Config.enemyTankConfig.minSteps; // 移动步数
     }
     public void move(){
         oldX = x;   // 保存移动前的坐标
@@ -32,7 +33,7 @@ public class EnemyTank extends Tank{
             this.oldDirection = this.direction;
         }
         if(steps==0){ //步数走完了
-            steps = r.nextInt(10)+5; //随机一个步数
+            steps = r.nextInt(Config.enemyTankConfig.maxSteps - Config.enemyTankConfig.minSteps + 1) + Config.enemyTankConfig.minSteps; // 随机一个步数
             direction = Direction.values()[r.nextInt(4)]; //随机选择一个方向(不能停下)
         }
         steps--; //每次走一步

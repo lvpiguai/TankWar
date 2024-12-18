@@ -15,6 +15,8 @@ public class GameElements {
     private List<Tree> trees = new ArrayList<>();
 	private List<BombTank>bombTanks = new ArrayList<>();
 	private List<Blood> bloods = new ArrayList<>();
+	private Random r = new Random();
+	private int mpNum;
 
     // 构造函数
     public GameElements(GameState gameState) {
@@ -23,14 +25,15 @@ public class GameElements {
 
     // 初始化游戏元素
 	public void initGameElements() {
+		mpNum = r.nextInt(2)+1;//随机地图编号
 		createBrickWall();//创建普通墙
 		createMetalWalls(); // 创建 metalWalls
 		createTrees(); // 创建 trees
 		createEnemyTanks(); // 创建 enemyTanks
-		rivers.add(new River(85, 100)); // 创建河流
-		homeTank = new HomeTank(280, 520, Direction.STOP,this);// 己方坦克
-        home = new Home(373, 545);// 实例化home
-		bloods.add(new Blood(155,196));
+		rivers.add(new River(Config.gameElementsConfig.riverPositions[0][0], Config.gameElementsConfig.riverPositions[0][1])); // 创建河流
+        homeTank = new HomeTank(Config.gameElementsConfig.homeTankX, Config.gameElementsConfig.homeTankY, Direction.STOP, this); // 己方坦克
+        home = new Home(Config.gameElementsConfig.homeX, Config.gameElementsConfig.homeY); // 实例化home
+		bloods.add(new Blood(Config.gameElementsConfig.bloodsPositions[0][0],Config.gameElementsConfig.bloodsPositions[0][1]));
 	}
     // 绘制所有元素
     public void drawElements(Graphics g) {
@@ -273,67 +276,97 @@ public class GameElements {
 			b.move();	
 		}
 	}
-	private void createBrickWall(){//创建普通墙() 
-		for (int i = 0; i < 10; i++) { // 家的格局
-			if (i < 4)
-				brickWalls.add(new BrickWall(350, 580 - 21 * i));
-			else if (i < 7)
-				brickWalls.add(new BrickWall(372 + 22 * (i - 4), 517));
-			else
-				brickWalls.add(new BrickWall(416, 538 + (i - 7) * 21));
-		}
-		for (int i = 0; i < 32; i++) { // 砖墙
-			if (i < 16) {
-				brickWalls.add(new BrickWall(220 + 20 * i, 300)); // 砖墙布局
-				brickWalls.add(new BrickWall(500 + 20 * i, 180));
-				brickWalls.add(new BrickWall(200, 400 + 20 * i));
-				brickWalls.add(new BrickWall(500, 400 + 20 * i));
-			} else if (i < 32) {
-				brickWalls.add(new BrickWall(220 + 20 * (i - 16), 320));
-				brickWalls.add(new BrickWall(500 + 20 * (i - 16), 220));
-				brickWalls.add(new BrickWall(220, 400 + 20 * (i - 16)));
-				brickWalls.add(new BrickWall(520, 400 + 20 * (i - 16)));
+	//创建普通墙() 
+	private void createBrickWall(){
+		if(mpNum==1){
+			for (int i = 0; i < 10; i++) {//家周围的墙壁
+				brickWalls.add(new BrickWall(Config.gameElementsConfig.brickWallPositions[i][0], Config.gameElementsConfig.brickWallPositions[i][1]));
+			}
+			for (int i = 10; i < 32; i++) {//其他
+				brickWalls.add(new BrickWall(Config.gameElementsConfig.brickWallPositions[i][0], Config.gameElementsConfig.brickWallPositions[i][1]));
+			}
+		}else{
+			// 使用第二幅地图的配置
+			for (int i = 0; i < 10; i++) { // 家的格局
+				brickWalls.add(new BrickWall(Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls[i][0], 
+											 Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls[i][1]));
+			}
+			for (int i = 10; i < 32; i++) { // 其他
+				brickWalls.add(new BrickWall(Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls[i][0], 
+											 Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls[i][1]));
 			}
 		}
+		
 	}
 	// 创建金属墙
 	private void createMetalWalls() {
-		for (int i = 0; i < 20; i++) { // 金属墙布局
-			if (i < 10) {
-				metalWalls.add(new MetalWall(140 + 30 * i, 150));
-				metalWalls.add(new MetalWall(600, 400 + 20 * (i)));
-			} else if (i < 20)
-				metalWalls.add(new MetalWall(140 + 30 * (i - 10), 180));
-			else
-				metalWalls.add(new MetalWall(500 + 30 * (i - 10), 160));
+		if(mpNum==1){
+			for (int i = 0; i < 20; i++) {
+				if (i < 10) {
+					metalWalls.add(new MetalWall(Config.gameElementsConfig.metalWallPositions[i][0], Config.gameElementsConfig.metalWallPositions[i][1]));
+					metalWalls.add(new MetalWall(Config.gameElementsConfig.metalWallPositions[i + 10][0], Config.gameElementsConfig.metalWallPositions[i + 10][1]));
+				} else {
+					metalWalls.add(new MetalWall(Config.gameElementsConfig.metalWallPositions[i][0], Config.gameElementsConfig.metalWallPositions[i][1]));
+				}
+			}
+		}else{
+			 // 使用第二幅地图的配置
+			 for (int i = 0; i < 13; i++) {
+				metalWalls.add(new MetalWall(Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls[i][0], 
+											 Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls[i][1]));
+			}
+			for (int i = 0; i <= 10; i++) {
+				metalWalls.add(new MetalWall(Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls[i][0], 
+											 Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls[i][1]));
+			}
 		}
+		
 	}
-
 	// 创建树
 	private void createTrees() {
-		for (int i = 0; i < 4; i++) { // 树的布局
-			if (i < 4) {
-				trees.add(new Tree(0 + 30 * i, 360));
-				trees.add(new Tree(220 + 30 * i, 360));
-				trees.add(new Tree(440 + 30 * i, 360));
-				trees.add(new Tree(660 + 30 * i, 360));
+		if(mpNum==1){
+			for (int i = 0; i < 4; i++) {
+				trees.add(new Tree(Config.gameElementsConfig.treePositions[i][0], Config.gameElementsConfig.treePositions[i][1]));
+				trees.add(new Tree(Config.gameElementsConfig.treePositions[i + 4][0], Config.gameElementsConfig.treePositions[i + 4][1]));
+				trees.add(new Tree(Config.gameElementsConfig.treePositions[i + 8][0], Config.gameElementsConfig.treePositions[i + 8][1]));
+				trees.add(new Tree(Config.gameElementsConfig.treePositions[i + 12][0], Config.gameElementsConfig.treePositions[i + 12][1]));
+			}
+		}else{
+			// 使用第二幅地图的配置
+			for (int i = 0; i < 4; i++) {
+				trees.add(new Tree(Config.gameElementsConfig.secondMapConfig.secondMapTrees[i][0], 
+								   Config.gameElementsConfig.secondMapConfig.secondMapTrees[i][1]));
+				trees.add(new Tree(Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 4][0], 
+								   Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 4][1]));
+				trees.add(new Tree(Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 8][0], 
+								   Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 8][1]));
+				trees.add(new Tree(Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 12][0], 
+								   Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 12][1]));
 			}
 		}
 	}
-
 	// 创建坦克
 	private void createEnemyTanks() {
 		int level = gameState.getGameLevel();
-		int count;
-		if(level== 1 || level == 2)count = 12;
-		else count = 20;
-		for (int i = 0; i < count; i++) { // 根据游戏级别初始化敌方坦克数目
-			if (i < 9) // 设置坦克出现的位置
-				enemyTanks.add(new EnemyTank(150 + 70 * i, 40, Direction.D, this));
-			else if (i < 15)
-				enemyTanks.add(new EnemyTank(700, 140 + 50 * (i - 6), Direction.D, this));
-			else
-				enemyTanks.add(new EnemyTank(10, 50 * (i - 12), Direction.D, this));
+		int count = 0;
+		if(level== 1)count = Config.gameElementsConfig.enemyTankCountLevel1;
+		else if(level== 2)count = Config.gameElementsConfig.enemyTankCountLevel2;
+		else if(level== 3)count = Config.gameElementsConfig.enemyTankCountLevel3;
+		else if(level== 4)count = Config.gameElementsConfig.enemyTankCountLevel4;
+		for (int i = 0; i < count; i++) {
+			if (i < 9) {
+				enemyTanks.add(new EnemyTank(Config.gameElementsConfig.enemyTankPositions.level1[i][0], 
+											 Config.gameElementsConfig.enemyTankPositions.level1[i][1], 
+											 Direction.D, this));
+			} else if (i < 15) {
+				enemyTanks.add(new EnemyTank(Config.gameElementsConfig.enemyTankPositions.level2[i - 9][0], 
+											 Config.gameElementsConfig.enemyTankPositions.level2[i - 9][1], 
+											 Direction.D, this));
+			} else {
+				enemyTanks.add(new EnemyTank(Config.gameElementsConfig.enemyTankPositions.level3[i - 15][0], 
+											 Config.gameElementsConfig.enemyTankPositions.level3[i - 15][1], 
+											 Direction.D, this));
+			}
 		}
 	}
 

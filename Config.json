@@ -1,0 +1,264 @@
+{
+    "bloodConfig": {
+        "count":100,
+        "position": [
+            [155, 196],
+            [500, 58],
+            [80, 340],
+            [99, 199],
+            [345, 456],
+            [123, 321],
+            [258, 413]
+        ],
+        "width": 36,
+        "length": 36,
+        "bloodVolume":1,
+        "imagesPath": "Images/hp.png"
+    } ,
+
+    "bombTankConfig": {
+            "explosionImages": [
+                "Images/1.gif",
+                "Images/2.gif",
+                "Images/3.gif",
+                "Images/4.gif",
+                "Images/5.gif",
+                "Images/6.gif",
+                "Images/7.gif",
+                "Images/8.gif",
+                "Images/9.gif",
+                "Images/10.gif"
+            ],
+            "bloodVolume": 1
+    },
+    "brickWallConfig": {
+        "imagePath": "Images/commonWall.gif",
+        "width": 20,
+        "length": 20,
+        "bloodVolume": 1
+    },
+    "bulletConfig": {
+        "speedX": 10,
+        "speedY": 10,
+        "width": 10,
+        "length": 10,
+        "imagePaths": [
+        "Images/bulletU.gif",
+        "Images/bulletD.gif",
+        "Images/bulletL.gif",
+        "Images/bulletR.gif"
+        ]
+    },
+    "tankConfig": {
+        "speedX": 6,
+        "speedY": 6,
+        "imagePaths": [
+        "Images/tankD.gif",
+        "Images/tankU.gif",
+        "Images/tankL.gif",
+        "Images/tankR.gif"
+        ],
+        "initialDirection": "U"
+    },
+    "enemyTankConfig": {
+        "speedX": 6,
+        "speedY": 6,
+        "imagePaths": [
+        "Images/tankD.gif",
+        "Images/tankU.gif",
+        "Images/tankL.gif",
+        "Images/tankR.gif"
+        ],
+        "bloodVolume": 1,
+        "width": 35,
+        "length": 35,
+        "minSteps": 5,
+        "maxSteps": 15
+    },
+    "gameStateConfig": {
+        "fontName": "TimesRoman",
+        "fontStyle": 1,
+        "fontSize": 20,
+        "initGameLevel": 1,
+        "timeTextX": 50,
+        "timeTextY": 70,
+        "enemyTankCountTextX": 230,
+        "enemyTankCountTextY": 70,
+        "homeTankHealthTextX": 500,
+        "homeTankHealthTextY": 70,
+        "timeLabel": "已用时间: ",
+        "enemyTankCountLabel": "区域内还有敌方坦克: ",
+        "homeTankHealthLabel": "剩余生命值: ",
+        "winMessage": "你赢了！",
+        "loseMessage": "你输了！",
+        "winMessageX": 310,
+        "winMessageY": 300,
+        "loseMessageX": 310,
+        "loseMessageY": 300
+    },
+    "homeConfig": {
+        "imagePath": "Images/home.jpg",
+        "bloodVolume": 1
+    },
+    "homeTankConfig": {
+        "bloodVolume": 10,
+        "width": 60,
+        "length": 60,
+        "imagePaths": [
+            "Images/homeTankU.gif",
+            "Images/homeTankD.gif",
+            "Images/homeTankL.gif",
+            "Images/homeTankR.gif"
+        ],
+        "healthBarX": 375,
+        "healthBarY": 585,
+        "healthBarWidth": 60,
+        "healthBarHeight": 10
+    },
+    "metalWallConfig": {
+        "width": 30,
+        "length": 30,
+        "imagePath": "Images/metalWall.gif"
+    },
+    "riverConfig": {
+        "width": 55,
+        "length": 154,
+        "imagePath": "Images/river.jpg"
+    },
+    "treeConfig": {
+        "width": 30,
+        "length": 30,
+        "imagePath": "Images/tree.gif"
+    },
+    "windowManagerConfig": {
+        "windowTitle": "坦克大战——(重新开始：R键  开火：F键)",
+        "backgroundColor": "GREEN",
+        "windowWidth": 800,
+        "windowHeight": 600,
+        "fontName": "TimesRoman",
+        "fontSize": 15,
+        "fontStyle": 1,
+        "menuNames": ["游戏", "暂停/继续", "帮助", "游戏级别"],
+        "menuItemNames": [
+            ["开始新游戏", "退出"],
+            ["暂停", "继续"],
+            ["游戏说明"],
+            ["级别1", "级别2", "级别3", "级别4"]
+        ],
+        "startNewGameConfirmation": "您确认要开始新游戏！",
+        "exitConfirmation": "您确认要退出吗",
+        "gameInstructionsMessage": "用WASD控制方向，J键发射，R键重新开始！",
+        "gameInstructionsTitle": "提示！",
+        "level1": {
+            "value":1,
+            "speedX": 6,
+            "speedY": 6,
+            "bulletSpeedX": 10,
+            "bulletSpeedY": 10
+        },
+        "level2": {
+            "value":2,
+            "speedX": 10,
+            "speedY": 10,
+            "bulletSpeedX": 12,
+            "bulletSpeedY": 12
+        },
+        "level3": {
+            "value":3,
+            "speedX": 14,
+            "speedY": 14,
+            "bulletSpeedX": 16,
+            "bulletSpeedY": 16
+        },
+        "level4": {
+            "value":4,
+            "speedX": 16,
+            "speedY": 16,
+            "bulletSpeedX": 18,
+            "bulletSpeedY": 18
+        }
+    },
+    "gameElementsConfig": {
+        "homeTankX": 280,
+        "homeTankY": 520,
+        "homeX": 373,
+        "homeY": 545,
+        "brickWallPositions": [
+            [350, 580], [350, 559], [350, 538], 
+            [372, 517], [394, 517], [416, 517],
+            [416, 538], [416, 559], [416, 580],
+            [220, 300], [240, 300], [260, 300], [280, 300], [300, 300], 
+            [320, 300], [340, 300], [360, 300], [380, 300], [400, 300],
+            [420, 300], [440, 300], [460, 300], [480, 300], [500, 300],
+            [220, 320], [240, 320], [260, 320], [280, 320], [300, 320],
+            [320, 320], [340, 320], [360, 320], [380, 320], [400, 320],
+            [420, 320], [440, 320], [460, 320], [480, 320], [500, 320],
+            [220, 400], [240, 400], [260, 400], [280, 400], [300, 400],
+            [320, 400], [340, 400], [360, 400], [380, 400], [400, 400],
+            [420, 400], [440, 400], [460, 400], [480, 400], [500, 400],
+            [220, 420], [240, 420], [260, 420], [280, 420], [300, 420],
+            [320, 420], [340, 420], [360, 420], [380, 420], [400, 420],
+            [420, 420], [440, 420], [460, 420], [480, 420], [500, 420]
+        ],
+        "metalWallPositions": [
+            [140, 150], [170, 150], [200, 150], [230, 150], [260, 150],
+            [290, 150], [320, 150], [350, 150], [380, 150], [410, 150],
+            [600, 400], [600, 420], [600, 440], [600, 460], [600, 480],
+            [600, 500], [600, 520], [600, 540], [600, 560], [600, 580],
+            [140, 180], [170, 180], [200, 180], [230, 180], [260, 180],
+            [290, 180], [320, 180], [350, 180], [380, 180], [410, 180],
+            [500, 160], [530, 160], [560, 160], [590, 160], [620, 160],
+            [650, 160], [680, 160], [710, 160], [740, 160], [770, 160]
+        ],
+        "treePositions": [
+            [0, 360], [30, 360], [60, 360], [90, 360],
+            [220, 360], [250, 360], [280, 360], [310, 360],
+            [440, 360], [470, 360], [500, 360], [530, 360],
+            [660, 360], [690, 360], [720, 360], [750, 360]
+        ],
+        "riverPositions": [
+            [85, 100]
+        ],
+        "bloodsPosition": [
+            [155, 196]
+        ],
+        "enemyTankCountLevel1": 12,
+        "enemyTankCountLevel2": 12,
+        "enemyTankCountLevel3": 20,
+        "enemyTankCountLevel4": 20,
+        "enemyTankPositions": {
+            "level1": [
+                [150, 40], [220, 40], [290, 40], [360, 40], [430, 40], [500, 40], [570, 40], [640, 40], [710, 40]
+            ],
+            "level2": [
+                [700, 140], [700, 190], [700, 240], [700, 290], [700, 340], [700, 390], [700, 440], [700, 490], [700, 540], [700, 590], 
+                [10, 50], [10, 100], [10, 150], [10, 200], [10, 250], [10, 300], [10, 350], [10, 400], [10, 450], [10, 500]
+            ],
+            "level3": [
+                [150, 40], [220, 40], [290, 40], [360, 40], [430, 40], [500, 40], [570, 40], [640, 40], [710, 40],
+                [700, 140], [700, 190], [700, 240], [700, 290], [700, 340], [700, 390], [700, 440], [700, 490], [700, 540], [700, 590]
+            ],
+            "level4": [
+                [150, 40], [220, 40], [290, 40], [360, 40], [430, 40], [500, 40], [570, 40], [640, 40], [710, 40],
+                [700, 140], [700, 190], [700, 240], [700, 290], [700, 340], [700, 390], [700, 440], [700, 490], [700, 540], [700, 590]
+            ]
+         },
+         "secondMapConfig": {
+            "secondMapBrickWalls": [
+                [350, 580], [372, 517], [416, 538],
+                [280, 400], [280, 420], [260, 400], [240, 400], [480, 400], [500, 400],
+                [220, 300], [660, 420], [640, 420], [20, 350], [20, 370]
+            ],
+            "secondMapMetalWalls": [
+                [250, 140], [600, 160], [120, 400], [350, 220]
+            ],
+            "secondMapTrees": [
+                [30, 260], [160, 220], [220, 350], [560, 320], [660, 280]
+            ]
+        }
+    },
+    "gameFameConfig": {
+        "width": 800,   
+        "length": 600
+    }
+}

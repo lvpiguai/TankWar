@@ -13,17 +13,20 @@ public abstract class Tank extends LivedGameObject implements Movable {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();// 控制面板
 	private static Image[] tankImags = null; // 坦克图片数组
 	static {
-		tankImags = new Image[] { tk.getImage(BombTank.class.getResource("Images/tankD.gif")),
-				tk.getImage(BombTank.class.getResource("Images/tankU.gif")),
-				tk.getImage(BombTank.class.getResource("Images/tankL.gif")),
-				tk.getImage(BombTank.class.getResource("Images/tankR.gif")), };
-				speedX = speedY = 6;
+		 // 从配置文件加载坦克的图片路径
+		 tankImags = new Image[Config.tankConfig.imagePaths.length];
+		 for (int i = 0; i < Config.tankConfig.imagePaths.length; i++) {
+			 tankImags[i] = tk.getImage(BombTank.class.getResource(Config.tankConfig.imagePaths[i]));
+		 }
+		 // 从配置文件中读取速度
+		 speedX = Config.tankConfig.speedX;
+		 speedY = Config.tankConfig.speedY;
 	}
 	// Tank的构造函数
 	public Tank(int x, int y,Direction dir,GameElements gameElements) {
 		super(x,y);
-		direction = dir; // 初始化状态为静止
-		oldDirection = Direction.U;//初始向上
+		direction = dir; // 初始化方向
+		oldDirection = Direction.valueOf(Config.tankConfig.initialDirection); // 从配置文件获取初始方向
 		this.gameElements = gameElements;// 游戏元素
 	}
 	public abstract void move(); // 移动

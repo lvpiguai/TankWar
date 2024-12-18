@@ -9,13 +9,14 @@ public class River extends GameObject {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] riverImags = null;
 	static { // 存储图片
-		riverImags = new Image[] { tk.getImage(GameFrame.class.getResource("Images/river.jpg")), };
+		 // 使用配置文件中的图像路径
+		 riverImags = new Image[] { tk.getImage(River.class.getResource(Config.riverConfig.imagePath)) };
 	}
 
 	public River(int x, int y) { // River的构造方法
 		super(x, y);
-		width = 55;
-		length = 154;
+		width = Config.riverConfig.width;      // 使用配置文件中的宽度
+        length = Config.riverConfig.length;    // 使用配置文件中的长度
 	}
 
 	public void draw(Graphics g) {

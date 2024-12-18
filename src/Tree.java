@@ -10,13 +10,15 @@ public class Tree extends GameObject {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] treeImags = null;
 	static {
-		treeImags = new Image[] { tk.getImage(BrickWall.class.getResource("Images/tree.gif")), };
+		 // 使用配置文件中的图像路径
+		 treeImags = new Image[] { tk.getImage(Tree.class.getResource(Config.treeConfig.imagePath)) };
 	}
 
 	// 构造函数
 	public Tree(int x, int y) {
 		super(x, y);
-		width = length = 30;
+		width = Config.treeConfig.width;      // 使用配置文件中的宽度
+        length = Config.treeConfig.length;    // 使用配置文件中的长度
 	}
 
 	public void draw(Graphics g) { // 画出树

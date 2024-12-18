@@ -4,17 +4,20 @@ import java.awt.*;
  */
 
 public class Bullet extends LivedGameObject implements Movable {
-	public static int speedX = 10;
-	public static int speedY = 10; // 子弹的全局静态速度
+	public static int speedX;
+	public static int speedY; // 子弹的全局静态速度
 	Direction diretion;
 	private boolean good;
 	private static Image[] images = null;
 	static{
-		String[]strArr = new String[]{"Images/bulletU.gif","Images/bulletD.gif","Images/bulletL.gif","Images/bulletR.gif"};
-		images = new Image[strArr.length];
-		for(int i=0;i<strArr.length;i++){
-			images[i] = Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource(strArr[i]));
-		}
+		// 加载子弹图片
+        images = new Image[Config.bulletConfig.imagePaths.length];
+        for (int i = 0; i < images.length; i++) {
+            images[i] = Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource(Config.bulletConfig.imagePaths[i]));
+        }
+        // 从配置文件中读取速度
+        speedX = Config.bulletConfig.speedX;
+        speedY = Config.bulletConfig.speedY;
 	}
 	// 构造函数，传递位置和方向和是否是己方子弹的标记
 	public Bullet(int x, int y, Direction dir, boolean good) { 
@@ -22,7 +25,8 @@ public class Bullet extends LivedGameObject implements Movable {
 		this.diretion = dir;
 		this.good = good;
 		bloodVolume = 1;
-		width = length = 10;
+        width = Config.bulletConfig.width;
+        length = Config.bulletConfig.length;
 	}
 	// 移动子弹
 	public void move() {

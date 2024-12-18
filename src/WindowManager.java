@@ -13,42 +13,38 @@ public class WindowManager {
     }
     // 初始化窗口设置
     public void initWindow() {
-        frame.setSize(GameFrame.Fram_width, GameFrame.Fram_length);// 设置界面大小
-        frame.setLocationRelativeTo(null);// 让窗体居中
-        frame.setTitle("坦克大战——(重新开始：R键  开火：F键)");// 设置窗口标题
-        frame.setResizable(false);// 禁止改变窗口大小
-        frame.setBackground(Color.GREEN);// 设置窗口颜色
-        frame.setVisible(true);// 设置窗口可见
-        frame.addWindowListener(new WindowAdapter() { // 监听窗口关闭为退出程序
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});	
-        frame.addKeyListener(new KeyMonitor());//添加键盘监听
+      // 使用配置文件中的窗口尺寸
+      frame.setSize(Config.windowManagerConfig.windowWidth, Config.windowManagerConfig.windowHeight);
+      frame.setLocationRelativeTo(null); // 让窗体居中
+      frame.setTitle(Config.windowManagerConfig.windowTitle); // 使用配置文件中的窗口标题
+      frame.setResizable(false); // 禁止改变窗口大小
+      frame.setBackground(Config.windowManagerConfig.backgroundColor); // 使用配置文件中的背景颜色
+      frame.setVisible(true); // 设置窗口可见
+      frame.addWindowListener(new WindowAdapter() { // 监听窗口关闭为退出程序
+          public void windowClosing(WindowEvent e) {
+              System.exit(0);
+          }
+      });	
+      frame.addKeyListener(new KeyMonitor()); // 添加键盘监听
     }
     // 创建菜单
     public void createMenu() {
         MenuBar menuBar = new MenuBar(); // 创建菜单条
         frame.setMenuBar(menuBar);// 菜单条加入窗口
 
-        String[] menuNames = { "游戏", "暂停/继续", "帮助", "游戏级别" };// 菜单名
+        String[] menuNames = Config.windowManagerConfig.menuNames; // 从配置文件加载菜单名称
         Menu[] menus = new Menu[menuNames.length];// 根据菜单名长度分配空间
         for (int i = 0; i < menuNames.length; i++) {// 遍历菜单名
             menus[i] = new Menu(menuNames[i]);// 创建菜单
-            menus[i].setFont(new Font("TimesRoman", Font.BOLD, 15));// 设置字体
+            menus[i].setFont(new Font(Config.windowManagerConfig.fontName, Config.windowManagerConfig.fontStyle, Config.windowManagerConfig.fontSize)); // 使用配置文件中的字体
             menuBar.add(menus[i]);// 加入菜单条
         }
 
-        String[][] menuItemNames = {// 菜单项名
-            {"开始新游戏", "退出"},
-            {"暂停", "继续"},
-            {"游戏说明"},
-            {"级别1", "级别2", "级别3", "级别4"}
-        };
+        String[][] menuItemNames = Config.windowManagerConfig.menuItemNames; // 从配置文件加载菜单项名称
         for (int i = 0; i < menuItemNames.length; i++) {// 下标对应菜单
             for (String name : menuItemNames[i]) {  // 各个菜单的菜单项
                 MenuItem item = new MenuItem(name);// 创建菜单项
-                item.setFont(new Font("TimesRoman", Font.BOLD, 15));// 设置字体
+                item.setFont(new Font(Config.windowManagerConfig.fontName, Config.windowManagerConfig.fontStyle, Config.windowManagerConfig.fontSize)); // 使用配置文件中的字体
                 menus[i].add(item);// 加入对应菜单
                 item.addActionListener(e -> handleMenuAction(e.getActionCommand())); // 添加点击监视器
             }
@@ -56,48 +52,30 @@ public class WindowManager {
     }
     // 处理菜单点击事件
     private void handleMenuAction(String command) {
-        System.out.println("Menu item clicked: " + command);
-        switch (command) {
-            case "开始新游戏":
-                if (showConfirmationDialog("您确认要开始新游戏！")) {
-                    frame.resetGame(); // 重置游戏
-                }
-                break;
-            case "暂停":
-                gameState.setPaused(); // 暂停游戏
-                break;
-            case "继续":
-                gameState.setInProgress(); // 继续游戏
-                System.out.println(gameState.getCurrentState());
-                break;
-            case "退出":
-                gameState.setPaused(); // 暂停游戏
-                if (showConfirmationDialog("您确认要退出吗")) {
-                    System.exit(0); // 退出游戏
-                } else {
-                    gameState.setInProgress(); // 继续游戏
-                }
-                break;
-            case "游戏说明":
-                gameState.setPaused(); // 暂停游戏
-                JOptionPane.showMessageDialog(frame, "用WASD控制方向，J键发射，R键重新开始！", "提示！", JOptionPane.INFORMATION_MESSAGE);
-                gameState.setInProgress(); // 游戏继续
-                break;
-            case "级别1":
-                setGameLevel(1, 6, 6, 10, 10);
-                break;
-            case "级别2":
-                setGameLevel(2, 10, 10, 12, 12);
-                break;
-            case "级别3":
-                setGameLevel(3, 14, 14, 16, 16);
-                break;
-            case "级别4":
-                setGameLevel(4, 16, 16, 18, 18);
-                break;
-
-            default:
-                break;
+        if(command==Config.windowManagerConfig.menuItemNames[0][0]){
+            if (showConfirmationDialog(Config.windowManagerConfig.startNewGameConfirmation)) {
+                frame.resetGame(); // 重置游戏
+            }
+        }else if(command==Config.windowManagerConfig.menuItemNames[0][1]){
+            if (showConfirmationDialog(Config.windowManagerConfig.exitConfirmation)) {
+                System.exit(0); // 退出游戏
+            }
+        }else if(command==Config.windowManagerConfig.menuItemNames[1][0]){
+            gameState.setPaused(); // 暂停游戏
+        }else if(command==Config.windowManagerConfig.menuItemNames[1][1]){
+            gameState.setInProgress(); // 继续游戏
+        }else if(command==Config.windowManagerConfig.menuItemNames[2][0]){
+            gameState.setPaused(); // 暂停游戏
+            JOptionPane.showMessageDialog(frame,Config.windowManagerConfig.gameInstructionsMessage, Config.windowManagerConfig.gameInstructionsTitle, JOptionPane.INFORMATION_MESSAGE);
+            gameState.setInProgress(); // 游戏继续
+        }else if(command==Config.windowManagerConfig.menuItemNames[3][0]){
+            setGameLevel(Config.windowManagerConfig.level1.value, Config.windowManagerConfig.level1.speedX, Config.windowManagerConfig.level1.speedY, Config.windowManagerConfig.level1.bulletSpeedX, Config.windowManagerConfig.level1.bulletSpeedY);
+        }else if(command==Config.windowManagerConfig.menuItemNames[3][1]){
+            setGameLevel(Config.windowManagerConfig.level2.value, Config.windowManagerConfig.level2.speedX, Config.windowManagerConfig.level2.speedY, Config.windowManagerConfig.level2.bulletSpeedX, Config.windowManagerConfig.level2.bulletSpeedY);
+        }else if(command==Config.windowManagerConfig.menuItemNames[3][2]){
+            setGameLevel(Config.windowManagerConfig.level3.value, Config.windowManagerConfig.level3.speedX, Config.windowManagerConfig.level3.speedY, Config.windowManagerConfig.level3.bulletSpeedX, Config.windowManagerConfig.level3.bulletSpeedY);
+        }else if(command==Config.windowManagerConfig.menuItemNames[3][3]){
+            setGameLevel(Config.windowManagerConfig.level4.value, Config.windowManagerConfig.level4.speedX, Config.windowManagerConfig.level4.speedY, Config.windowManagerConfig.level4.bulletSpeedX, Config.windowManagerConfig.level4.bulletSpeedY);
         }
     }
     // 设置游戏级别

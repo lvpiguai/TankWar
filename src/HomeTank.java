@@ -3,13 +3,13 @@ import java.awt.*;
 public class HomeTank extends Tank {
     public HomeTank(int x, int y, Direction dir, GameElements gameElements) {
         super(x, y, dir, gameElements);
-        bloodVolume = 10;// 坦克血量    
-        width = length = 60;// 坦克的大小
+        bloodVolume = Config.homeTankConfig.bloodVolume; // 使用配置文件中的血量
+        width = length = Config.homeTankConfig.width; // 使用配置文件中的宽度和长度
     }
 
     private static Image[] images = null;
     static {
-        String[] strArr = { "Images/homeTankU.gif", "Images/homeTankD.gif", "Images/homeTankL.gif", "Images/homeTankR.gif" };
+        String[] strArr = Config.homeTankConfig.imagePaths; // 使用配置文件中的图像路径数组
         images = new Image[strArr.length];
         for (int i = 0; i < strArr.length; i++) {
             images[i] = Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource(strArr[i]));
@@ -41,7 +41,7 @@ public class HomeTank extends Tank {
     }
 
     public void heal() {
-        if (bloodVolume < 5)
+        if (bloodVolume < Config.homeTankConfig.bloodVolume)
             setBloodVolume(bloodVolume + 1);
     }
 
@@ -49,9 +49,10 @@ public class HomeTank extends Tank {
         g.drawImage(images[oldDirection.ordinal()], x, y, null);
         Color c = g.getColor();
         g.setColor(Color.RED);
-        g.drawRect(375, 585, width, 10);// 显示玩家坦克的血量条
+        // 使用配置文件中的血条位置和大小
+        g.drawRect(Config.homeTankConfig.healthBarX, Config.homeTankConfig.healthBarY, width, Config.homeTankConfig.healthBarHeight);
         int w = width * bloodVolume / 10;
-        g.fillRect(375, 585, w, 10);// 显示玩家坦克的血量条
+        g.fillRect(Config.homeTankConfig.healthBarX, Config.homeTankConfig.healthBarY, w, Config.homeTankConfig.healthBarHeight);
         g.setColor(c);
     }
 

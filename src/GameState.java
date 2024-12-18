@@ -8,11 +8,12 @@ public class GameState {
         LOST         // 游戏失败
     }
     private GameStateType currentState; // 当前游戏状态
-    private int gameLevel = 1;
+    private int gameLevel;
     private long startTime; // 游戏开始时间
     public GameState() {// 默认游戏状态为进行中
         this.currentState = GameStateType.IN_PROGRESS;
         startTime = System.currentTimeMillis();
+        gameLevel = Config.gameStateConfig.initGameLevel;
     }
     // 绘制游戏状态信息到屏幕上
 	public void drawState(Graphics g,GameElements gameElements) {
@@ -20,19 +21,17 @@ public class GameState {
 		g.setColor(Color.GREEN); // 设置为绿色
 
 		Font f1 = g.getFont(); // 保存原本的字体
-		Font font1 = new Font("TimesRoman", Font.BOLD, 20); // 设置新的字体
-        //显示时间
-        long elapsedTime = (System.currentTimeMillis() - startTime) / 1000; // 计算经过的秒数
+		Font font1 = new Font(Config.gameStateConfig.fontName, Config.gameStateConfig.fontStyle, Config.gameStateConfig.fontSize); // 使用配置中的字体
         g.setFont(font1);
-        g.drawString("已用时间: " + elapsedTime + " 秒", 50, 70); // 在屏幕上显示时间
+        //显示时间
+        long elapsedTime = (System.currentTimeMillis() - startTime) / 1000; // 计算经过的秒数 
+        g.drawString(Config.gameStateConfig.timeLabel + elapsedTime + " 秒",Config.gameStateConfig.timeTextX, Config.gameStateConfig.timeTextY); // 在屏幕上显示时间
 		// 显示地方坦克数目
-		g.setFont(font1);
-		g.drawString("区域内还有敌方坦克: ", 230, 70 ); 
-		g.drawString("" + gameElements.getEnemyTanks().size(), 430, 70);
+        g.drawString(Config.gameStateConfig.enemyTankCountLabel, Config.gameStateConfig.enemyTankCountTextX, Config.gameStateConfig.enemyTankCountTextY);
+        g.drawString("" + gameElements.getEnemyTanks().size(), Config.gameStateConfig.enemyTankCountTextX + 200, Config.gameStateConfig.enemyTankCountTextY);
 		// 显示剩余生命值
-		g.setFont(font1);
-		g.drawString("剩余生命值: ", 500, 70);
-		g.drawString("" + gameElements.getHomeTank().getBloodVolume(), 620, 70);
+		g.drawString(Config.gameStateConfig.homeTankHealthLabel, Config.gameStateConfig.homeTankHealthTextX, Config.gameStateConfig.homeTankHealthTextY);
+        g.drawString("" + gameElements.getHomeTank().getBloodVolume(), Config.gameStateConfig.homeTankHealthTextX + 120, Config.gameStateConfig.homeTankHealthTextY);
         
         // 如果玩家赢了（条件是敌方坦克全灭、大本营健在、玩家坦克仍有血量）
 		if (isWon()) {
@@ -40,7 +39,7 @@ public class GameState {
             g.setColor(Color.GRAY); //用灰色颜色填充
             g.fillRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length); // 用灰色背景填充
             g.setColor(Color.GREEN);
-			g.drawString("你赢了！ ", 310, 300);
+			g.drawString(Config.gameStateConfig.winMessage, Config.gameStateConfig.winMessageX, Config.gameStateConfig.winMessageY);
 		}
 		// 如果玩家输了
 		if (isLost()) {
@@ -48,7 +47,7 @@ public class GameState {
             g.setColor(Color.GRAY); //用灰色颜色填充
             g.fillRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length); // 用灰色背景填充
             g.setColor(Color.GREEN);
-			g.drawString("你输了！ ", 310, 300);
+			g.drawString(Config.gameStateConfig.loseMessage, Config.gameStateConfig.loseMessageX, Config.gameStateConfig.loseMessageY);
 		}
         g.setFont(f1);// 恢复原本字体
 		g.setColor(c); // 恢复颜色

@@ -5,10 +5,15 @@ import java.awt.*;
  */
 
 public class GameFrame extends Frame{
-
+	 // 静态块：类加载时就自动加载配置
+	 static {
+        Config.loadConfig("Config.json");  // 配置文件路径
+		Fram_width = Config.gameFrameConfig.width; // 静态全局窗口大小
+		Fram_length = Config.gameFrameConfig.length;// 静态全局窗口大小
+    }
 	private static final long serialVersionUID = 5972735870004738773L;
-	public static final int Fram_width = 800; // 静态全局窗口大小
-	public static final int Fram_length = 600;// 静态全局窗口大小
+	public static int Fram_width = 800; // 窗口宽度
+	public static int Fram_length = 600; // 窗口高度
 
 	private WindowManager windowManager;// 窗口和菜单管理
 	private GameState gameState;// 游戏状态

@@ -6,20 +6,23 @@ import java.util.Random;
  */
 
 public class Blood extends LivedGameObject{
-	private int count = 100;
+	private static int count;//每 count 次变换位置
 	private int posIdx;//位置下标
 	private static Random r = new Random();
 	private static Image[] images = null;
+	private static int[][] poition;
 	static{
-		images = new Image[] { Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource("Images/hp.png")), };
+		images = new Image[] { Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource(Config.bloodConfig.imagesPath)), };
+		count = Config.bloodConfig.count;
+		poition = Config.bloodConfig.position;
 	}
-	private int[][] poition = { { 155, 196 }, { 500, 58 }, { 80, 340 }, { 99, 199 }, { 345, 456 }, { 123, 321 },
-			{ 258, 413 } };
+	
 
 	public Blood(int x, int y) {
 		super(x, y);
-		width = length = 36;
-		bloodVolume = 1;
+		width = Config.bloodConfig.width;
+		length = Config.bloodConfig.length;
+		bloodVolume = Config.bloodConfig.bloodVolume;
 		posIdx = r.nextInt(poition.length);//随机一个位置
 	}
 
@@ -31,7 +34,7 @@ public class Blood extends LivedGameObject{
 	public void move() {
 		//每 count 次变换位置
 		if(--count == 0){
-			count = 100;
+			count = Config.bloodConfig.count;
 			posIdx = r.nextInt(poition.length);
 		}
 		x = poition[posIdx][0];

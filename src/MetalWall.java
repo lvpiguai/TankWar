@@ -10,12 +10,14 @@ public class MetalWall extends GameObject {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] wallImags = null;
 	static {
-		wallImags = new Image[] { tk.getImage(BrickWall.class.getResource("Images/metalWall.gif")), };
+		// 使用配置文件中的图像路径
+        wallImags = new Image[] { tk.getImage(MetalWall.class.getResource(Config.metalWallConfig.imagePath)) };
 	}
 
 	public MetalWall(int x, int y) {// 构造函数，传递要构造的长宽并赋值
 		super(x, y);
-		width = length =30;
+		width = Config.metalWallConfig.width;   // 使用配置文件中的宽度
+        length = Config.metalWallConfig.length; // 使用配置文件中的长度
 	}
 
 	public void draw(Graphics g) { // 画金属墙

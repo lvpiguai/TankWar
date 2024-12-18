@@ -12,12 +12,13 @@ public class Home extends LivedGameObject{
 	private static Toolkit tk = Toolkit.getDefaultToolkit(); // 全局静态变量
 	private static Image[] images;
 	static {
-		images = new Image[] { tk.getImage(GameFrame.class.getResource("Images/home.jpg")), };
+		// 使用 Config 中的配置来加载图像路径
+        images = new Image[] { tk.getImage(GameFrame.class.getResource(Config.homeConfig.imagePath))};
 	}
 
 	public Home(int x, int y) {// 构造函数，传递Home的参数并赋值
 		super(x, y);
-		bloodVolume = 1;//血量为 1
+		bloodVolume = Config.homeConfig.bloodVolume; // 使用配置文件中的血量
 	}
 
 	public void draw(Graphics g) {
