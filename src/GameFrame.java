@@ -7,6 +7,9 @@ import java.awt.*;
 public class GameFrame extends Frame{
 
 	private static final long serialVersionUID = 5972735870004738773L;
+	static{
+		Config.loadConfig("config.json");
+	}
 	public static final int Fram_width = 800; // 静态全局窗口大小
 	public static final int Fram_length = 600;// 静态全局窗口大小
 
