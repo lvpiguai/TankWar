@@ -25,8 +25,13 @@ public class Bullet extends LivedGameObject implements Movable {
 		this.diretion = dir;
 		this.good = good;
 		bloodVolume = 1;
-        width = Config.bulletConfig.width;
-        length = Config.bulletConfig.length;
+		if(good){
+			width = Config.bulletConfig.goodWidth;
+			length = Config.bulletConfig.goodLength;
+		}else{
+			width = Config.bulletConfig.width;
+			length = Config.bulletConfig.length;
+		}
 	}
 	// 移动子弹
 	public void move() {
@@ -66,7 +71,11 @@ public class Bullet extends LivedGameObject implements Movable {
 	// 画出子弹
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(images[diretion.ordinal()], x, y, null);
+		if(good){
+			g.drawImage(images[diretion.ordinal()+4], x, y, null);
+		}else{
+			g.drawImage(images[diretion.ordinal()], x, y, null);
+		}
 	}
 	//越界检查
 	@Override

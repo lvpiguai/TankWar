@@ -19,14 +19,12 @@ public class GameFrame extends Frame{
 	private GameElements gameElements;// 游戏元素
 	private static GameFrame instance = new GameFrame();// 饿汉式单例模式
 
+	//主函数（程序入口）
 	public static void main(String[] args) {
 		instance.startGame(); //启动游戏
 	}
-
 	// 私有化构造函数
-	private GameFrame() {
-		
-	}
+	private GameFrame() {}
 	//提供全局访问点
 	public static GameFrame getInstance(){
 		return instance;
@@ -35,7 +33,7 @@ public class GameFrame extends Frame{
 	public void startGame(){
 		gameState = new GameState();// 游戏状态 
 		windowManager = new WindowManager(); // 窗口和菜单管理
-		gameElements = new GameElements(gameState);// 游戏元素
+		gameElements = new GameElements();// 游戏元素
 		windowManager.initWindow();// 初始化窗口
 		windowManager.createMenu();// 创建菜单
 		gameElements.initGameElements();// 初始化游戏元素

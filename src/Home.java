@@ -8,12 +8,10 @@ import java.awt.Toolkit;
  */
 
 public class Home extends LivedGameObject{
-	
-	private static Toolkit tk = Toolkit.getDefaultToolkit(); // 全局静态变量
 	private static Image[] images;
 	static {
 		// 使用 Config 中的配置来加载图像路径
-        images = new Image[] { tk.getImage(GameFrame.class.getResource(Config.homeConfig.imagePath))};
+        images = new Image[] { Toolkit.getDefaultToolkit().getImage(GameFrame.class.getResource(Config.homeConfig.imagePath))};
 	}
 
 	public Home(int x, int y) {// 构造函数，传递Home的参数并赋值

@@ -6,11 +6,10 @@ import java.awt.Toolkit;
  * 河流类
  */
 public class River extends GameObject {
-	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] riverImags = null;
 	static { // 存储图片
 		 // 使用配置文件中的图像路径
-		 riverImags = new Image[] { tk.getImage(River.class.getResource(Config.riverConfig.imagePath)) };
+		 riverImags = new Image[] { Toolkit.getDefaultToolkit().getImage(River.class.getResource(Config.riverConfig.imagePath)) };
 	}
 
 	public River(int x, int y) { // River的构造方法

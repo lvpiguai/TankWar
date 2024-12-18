@@ -7,11 +7,10 @@ import java.awt.Toolkit;
  */
 
 public class Tree extends GameObject {
-	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] treeImags = null;
 	static {
 		 // 使用配置文件中的图像路径
-		 treeImags = new Image[] { tk.getImage(Tree.class.getResource(Config.treeConfig.imagePath)) };
+		 treeImags = new Image[] { Toolkit.getDefaultToolkit().getImage(Tree.class.getResource(Config.treeConfig.imagePath)) };
 	}
 
 	// 构造函数

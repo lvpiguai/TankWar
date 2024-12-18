@@ -16,11 +16,11 @@ public class GameElements {
 	private List<BombTank>bombTanks = new ArrayList<>();
 	private List<Blood> bloods = new ArrayList<>();
 	private Random r = new Random();
-	private int mpNum;
+	private int mpNum;//地图编号
 
     // 构造函数
-    public GameElements(GameState gameState) {
-		this.gameState = gameState;
+    public GameElements() {
+		this.gameState = GameFrame.getInstance().getGameState();//使用单例
     }
 
     // 初始化游戏元素
@@ -183,6 +183,8 @@ public class GameElements {
 		rivers.clear();
 		trees.clear();
 		bloods.clear();
+		homeTank = null;
+		home = null;
 	}
 	//更新游戏逻辑
 	public void update(){

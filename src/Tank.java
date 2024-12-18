@@ -10,13 +10,12 @@ public abstract class Tank extends LivedGameObject implements Movable {
 	protected Direction oldDirection; // 记录绘制方向
 	protected int oldX, oldY;// 坦克移动前的坐标
 	protected GameElements gameElements;// 游戏元素
-	private static Toolkit tk = Toolkit.getDefaultToolkit();// 控制面板
 	private static Image[] tankImags = null; // 坦克图片数组
 	static {
 		 // 从配置文件加载坦克的图片路径
 		 tankImags = new Image[Config.tankConfig.imagePaths.length];
 		 for (int i = 0; i < Config.tankConfig.imagePaths.length; i++) {
-			 tankImags[i] = tk.getImage(BombTank.class.getResource(Config.tankConfig.imagePaths[i]));
+			 tankImags[i] = Toolkit.getDefaultToolkit().getImage(BombTank.class.getResource(Config.tankConfig.imagePaths[i]));
 		 }
 		 // 从配置文件中读取速度
 		 speedX = Config.tankConfig.speedX;

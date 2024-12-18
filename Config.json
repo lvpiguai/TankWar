@@ -18,16 +18,16 @@
 
     "bombTankConfig": {
             "explosionImages": [
-                "Images/1.gif",
-                "Images/2.gif",
-                "Images/3.gif",
-                "Images/4.gif",
-                "Images/5.gif",
-                "Images/6.gif",
-                "Images/7.gif",
-                "Images/8.gif",
-                "Images/9.gif",
-                "Images/10.gif"
+                "Images/e1.gif",
+                "Images/e2.gif",
+                "Images/e3.gif",
+                "Images/e4.gif",
+                "Images/e5.gif",
+                "Images/e6.gif",
+                "Images/e7.gif",
+                "Images/e8.gif",
+                "Images/e9.gif",
+                "Images/e10.gif"
             ],
             "bloodVolume": 1
     },
@@ -42,11 +42,17 @@
         "speedY": 10,
         "width": 10,
         "length": 10,
+        "goodWidth":30,
+        "goodLength":30,
         "imagePaths": [
         "Images/bulletU.gif",
         "Images/bulletD.gif",
         "Images/bulletL.gif",
-        "Images/bulletR.gif"
+        "Images/bulletR.gif",
+        "Images/goodBulletU.png",
+        "Images/goodBulletD.png",
+        "Images/goodBulletL.png",
+        "Images/goodBulletR.png"
         ]
     },
     "tankConfig": {

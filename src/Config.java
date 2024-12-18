@@ -93,6 +93,8 @@ public class Config {
         int speedY;
         int width;
         int length;
+        int goodWidth;
+        int goodLength;
         String[] imagePaths;
     }
     public static class TankConfig {
