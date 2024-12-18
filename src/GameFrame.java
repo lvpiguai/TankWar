@@ -5,31 +5,37 @@ import java.awt.*;
  */
 
 public class GameFrame extends Frame{
-	 // 静态块：类加载时就自动加载配置
-	 static {
+	// 静态块：类加载时就自动加载配置
+	static {
         Config.loadConfig("Config.json");  // 配置文件路径
 		Fram_width = Config.gameFrameConfig.width; // 静态全局窗口大小
 		Fram_length = Config.gameFrameConfig.length;// 静态全局窗口大小
     }
 	private static final long serialVersionUID = 5972735870004738773L;
-	public static int Fram_width = 800; // 窗口宽度
-	public static int Fram_length = 600; // 窗口高度
-
+	public static int Fram_width; // 窗口宽度
+	public static int Fram_length; // 窗口高度
 	private WindowManager windowManager;// 窗口和菜单管理
 	private GameState gameState;// 游戏状态
 	private GameElements gameElements;// 游戏元素
+	private static GameFrame instance = new GameFrame();// 饿汉式单例模式
+
 	public static void main(String[] args) {
-		new GameFrame().startGame(); //启动游戏
+		instance.startGame(); //启动游戏
 	}
 
-	// 构造函数(创建对象)
-	public GameFrame() {
-		gameState = new GameState();// 游戏状态 (必须在windowManager之前)
-		windowManager = new WindowManager(this); // 窗口和菜单管理
-		gameElements = new GameElements(gameState);// 游戏元素
+	// 私有化构造函数
+	private GameFrame() {
+		
+	}
+	//提供全局访问点
+	public static GameFrame getInstance(){
+		return instance;
 	}
 	//启动游戏
 	public void startGame(){
+		gameState = new GameState();// 游戏状态 
+		windowManager = new WindowManager(); // 窗口和菜单管理
+		gameElements = new GameElements(gameState);// 游戏元素
 		windowManager.initWindow();// 初始化窗口
 		windowManager.createMenu();// 创建菜单
 		gameElements.initGameElements();// 初始化游戏元素

@@ -7,8 +7,8 @@ public class WindowManager {
     private GameState gameState;
     private GameFrame frame;
 
-    public WindowManager(GameFrame frame) {
-        this.frame = frame;
+    public WindowManager() {
+        this.frame = GameFrame.getInstance(); //访问单例
         gameState = frame.getGameState();
     }
     // 初始化窗口设置
