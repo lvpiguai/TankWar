@@ -6,6 +6,7 @@ public class Config {
     // 配置字段：用于存储 JSON 中的数据
     public static BloodConfig bloodConfig;
     public static BombTankConfig bombTankConfig;
+    public static GameFrameConfig gameFrameConfig;
 
     // 加载 JSON 配置文件
     public static void loadConfig(String filePath) {
@@ -17,6 +18,7 @@ public class Config {
             // 将配置加载到静态字段
             bloodConfig = appConfig.bloodConfig;
             bombTankConfig = appConfig.bombTankConfig;
+            gameFrameConfig = appConfig.gameFrameConfig;
             
             if (appConfig == null) {
                 System.err.println("配置文件加载失败，Config 对象为 null");
@@ -36,6 +38,13 @@ public class Config {
             } else{
                 System.out.println("bombTankConfig 加载成功");
             }
+
+            if(gameFrameConfig == null) {
+                System.err.println("gameFrameConfig 加载失败");
+            } else{
+                System.out.println("gameFrameConfig 加载成功");
+            }
+
 
         }catch (IOException e) {
             System.err.println("配置文件加载失败: " + e.getMessage());
@@ -57,9 +66,14 @@ public class Config {
         String[] explosionImages;
         int bloodVolume;
     }
+    public static class GameFrameConfig {
+        int width;
+        int length;
+    }
     // 定义一个顶层容器类来封装所有配置类
     private static class AppConfig {
         BloodConfig bloodConfig;
         BombTankConfig bombTankConfig;
+        GameFrameConfig gameFrameConfig;
     }
 }

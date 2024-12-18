@@ -29,5 +29,9 @@
                 "Images/10.gif"
             ],
             "bloodVolume": 1
+    },
+    "gameFrameConfig": {
+        "width": 800,   
+        "length": 600
     }
 }
