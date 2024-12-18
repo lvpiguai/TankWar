@@ -33,6 +33,8 @@ public class GameState {
 		g.drawString(Config.gameStateConfig.homeTankHealthLabel, Config.gameStateConfig.homeTankHealthTextX, Config.gameStateConfig.homeTankHealthTextY);
         g.drawString("" + gameElements.getHomeTank().getBloodVolume(), Config.gameStateConfig.homeTankHealthTextX + 120, Config.gameStateConfig.homeTankHealthTextY);
         
+        Font font2 = new Font(Config.gameStateConfig.fontName, Config.gameStateConfig.fontStyle, Config.gameStateConfig.fontSize2); // 使用配置中的字体
+        g.setFont(font2);
         // 如果玩家赢了（条件是敌方坦克全灭、大本营健在、玩家坦克仍有血量）
 		if (isWon()) {
             g.clearRect(0, 0, GameFrame.Fram_width, GameFrame.Fram_length);// 清空屏幕

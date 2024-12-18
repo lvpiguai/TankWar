@@ -17,6 +17,9 @@ public class WindowManager {
       frame.setSize(Config.windowManagerConfig.windowWidth, Config.windowManagerConfig.windowHeight);
       frame.setLocationRelativeTo(null); // 让窗体居中
       frame.setTitle(Config.windowManagerConfig.windowTitle); // 使用配置文件中的窗口标题
+
+      System.out.println(Config.windowManagerConfig.windowTitle);//调试
+
       frame.setResizable(false); // 禁止改变窗口大小
       frame.setBackground(Color.GREEN);
       frame.setVisible(true); // 设置窗口可见

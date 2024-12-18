@@ -1,6 +1,10 @@
 import com.google.gson.Gson;
+
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class Config {
 
@@ -23,9 +27,9 @@ public class Config {
 
     // 加载 JSON 配置文件
     public static void loadConfig(String filePath) {
-        System.out.println("正在加载配置文件: " + filePath); // 打印出文件路径，检查是否正确
+        //System.out.println("正在加载配置文件: " + filePath); // 打印出文件路径，检查是否正确
         Gson gson = new Gson();
-        try (FileReader reader = new FileReader(filePath)) {
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8)) {
             AppConfig config = gson.fromJson(reader, AppConfig.class);
             // 配置加载到静态字段
             bloodConfig = config.bloodConfig;
@@ -43,17 +47,6 @@ public class Config {
             windowManagerConfig = config.windowManagerConfig;
             gameElementsConfig = config.gameElementsConfig;
             gameFrameConfig = config.gameFrameConfig;
-            if (config == null) {
-                System.err.println("配置文件加载失败，Config 对象为 null");
-            }else{
-                System.out.println("配置文件加载成功");
-                System.out.println("加载的配置文件内容: " + config);
-            }
-            if (config.gameFrameConfig == null) {
-                System.err.println("gameFrameConfig 加载失败！");
-            } else {
-                System.out.println("gameFrameConfig 加载成功！");
-            }
 
         }catch (IOException e) {
             System.err.println("配置文件加载失败: " + e.getMessage());
@@ -124,6 +117,7 @@ public class Config {
         String fontName;
         int fontStyle;
         int fontSize;
+        int fontSize2;
         int initGameLevel;
         int timeTextX;
         int timeTextY;

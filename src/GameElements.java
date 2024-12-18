@@ -279,21 +279,15 @@ public class GameElements {
 	//创建普通墙() 
 	private void createBrickWall(){
 		if(mpNum==1){
-			for (int i = 0; i < 10; i++) {//家周围的墙壁
-				brickWalls.add(new BrickWall(Config.gameElementsConfig.brickWallPositions[i][0], Config.gameElementsConfig.brickWallPositions[i][1]));
-			}
-			for (int i = 10; i < 32; i++) {//其他
-				brickWalls.add(new BrickWall(Config.gameElementsConfig.brickWallPositions[i][0], Config.gameElementsConfig.brickWallPositions[i][1]));
+			int[][] pos = Config.gameElementsConfig.brickWallPositions;
+			for(int i = 0;i<pos.length;++i){
+				brickWalls.add(new BrickWall(pos[i][0],pos[i][1]));
 			}
 		}else{
 			// 使用第二幅地图的配置
-			for (int i = 0; i < 10; i++) { // 家的格局
-				brickWalls.add(new BrickWall(Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls[i][0], 
-											 Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls[i][1]));
-			}
-			for (int i = 10; i < 32; i++) { // 其他
-				brickWalls.add(new BrickWall(Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls[i][0], 
-											 Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls[i][1]));
+			int[][]pos = Config.gameElementsConfig.secondMapConfig.secondMapBrickWalls;
+			for (int i = 0; i < pos.length; i++) { // 家的格局
+				brickWalls.add(new BrickWall(pos[i][0],pos[i][1]));
 			}
 		}
 		
@@ -301,6 +295,7 @@ public class GameElements {
 	// 创建金属墙
 	private void createMetalWalls() {
 		if(mpNum==1){
+
 			for (int i = 0; i < 20; i++) {
 				if (i < 10) {
 					metalWalls.add(new MetalWall(Config.gameElementsConfig.metalWallPositions[i][0], Config.gameElementsConfig.metalWallPositions[i][1]));
@@ -311,13 +306,9 @@ public class GameElements {
 			}
 		}else{
 			 // 使用第二幅地图的配置
-			 for (int i = 0; i < 13; i++) {
-				metalWalls.add(new MetalWall(Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls[i][0], 
-											 Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls[i][1]));
-			}
-			for (int i = 0; i <= 10; i++) {
-				metalWalls.add(new MetalWall(Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls[i][0], 
-											 Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls[i][1]));
+			int[][]pos = Config.gameElementsConfig.secondMapConfig.secondMapMetalWalls;
+			for(int i = 0;i<pos.length;++i){
+				metalWalls.add(new MetalWall(pos[i][0],pos[i][1]));
 			}
 		}
 		
@@ -333,15 +324,9 @@ public class GameElements {
 			}
 		}else{
 			// 使用第二幅地图的配置
-			for (int i = 0; i < 4; i++) {
-				trees.add(new Tree(Config.gameElementsConfig.secondMapConfig.secondMapTrees[i][0], 
-								   Config.gameElementsConfig.secondMapConfig.secondMapTrees[i][1]));
-				trees.add(new Tree(Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 4][0], 
-								   Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 4][1]));
-				trees.add(new Tree(Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 8][0], 
-								   Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 8][1]));
-				trees.add(new Tree(Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 12][0], 
-								   Config.gameElementsConfig.secondMapConfig.secondMapTrees[i + 12][1]));
+			int[][]pos = Config.gameElementsConfig.secondMapConfig.secondMapTrees;
+			for(int i = 0;i<pos.length;++i){
+				trees.add(new Tree(pos[i][0],pos[i][1]));
 			}
 		}
 	}
